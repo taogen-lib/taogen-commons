@@ -1,2 +1,473 @@
 # java-commons
 My library of utility.
+
+
+
+<h3 id="content">Content</h3>
+
+- Java util class basic
+  - Java lib
+    - [x] [StringUtils](#stru)
+    - [x] [EncodingUtils](#encu)
+    - [NumberUtils](#numu)
+    - [x] [RandomUtils](#randu)
+    - [DateUtils](#dateu)
+    - [TimeUtils](#timeu)
+    - [EncryptUtils](#encpu)
+    - [Md5Utils](#md5u)
+    - File I/O
+      - [FileUtils](#fileu)
+      - [PropertyUtils](#propu)
+      - [ImageUtils](#imgu)
+      - [ZipUtils](#zipu)
+    - [LocationUtils](#locu) (LngAndLatUtils)
+  - Javax lib
+    - [IpUtils](#ipu)
+    - [RequestParamUtils](#reqparamu)
+    - [EmailUtils](#emailu)
+  - Third lib
+    - [JsonUtils](#jsonu)
+    - [XmlUtils](#xmlu)
+    - [PinyinUtils](#pyu)
+    - [HttpUtils](#httpu)
+    - [QrCodeUtils](#qru)
+    - [SpringUtils](#springu)
+  - Others
+    - [I18nUtils](#i18nu)
+    - [LogUtils](#logu)
+
+
+
+### Main
+
+### A Utility Accomplishment Process
+
+Defining methods of utility --> writing fake implement class --> writing test class --> writing real implement class and pass its test.
+
+### Assertions of Junit 5 
+
+```java
+assertAll(...)
+assertEquals(...)
+assertNotEquals(...)
+assertArrayEquals(...)
+assertTrue(...)
+assertFalse(...)
+assertNull(...)
+assertNotNull(...)
+assertSame(...) 
+assertNotSame(...)
+assertIterableEquals(...)
+assertLinesMatch(...)
+assertThrows(...)
+assertTimeout(...)
+assertTimeoutPreemptively(...)
+fail(...)
+```
+
+<h3 id="stru">StringUtils</h3>
+
+Dependencies: 
+
+```
+import java.lang.reflect.InvocationTargetException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+```
+
+Methods
+
+Convert
+
+```java
+int str2Int (String str, int defaults)   // str2Long, str2Float, str2Double, Str2Boolean
+```
+
+Verify
+
+```java
+boolean isEmpty(String str)
+boolean isEmail(String email)   // isMobile, isMatch(String email,  String regex)
+```
+
+Handle
+
+```java
+String encodeMobile (String mobile)  // encodeBankCard, encodeEmail
+String jointString (String... strs)
+String toNotNull (String str)
+String expandLength(String str, int len, char fillChar)
+```
+
+[`back to content`](#content)
+
+------
+
+<h3 id="encu">EncodingUtils</h3>
+
+Dependencies
+
+```
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+```
+
+Methods
+
+Verify
+
+```java
+boolean isChinese(String str)
+boolean isEmoji(String str)
+```
+
+Convert
+
+```java
+String iso2Utf8(String str)
+String emojiConvert(String str)  
+String emojiRecovery(String str)
+```
+
+[`back to content`](#content)
+
+------
+
+<h3 id="numu">NumberUtils</h3>
+
+Dependencies
+
+Methods
+
+[`back to content`](#content)
+
+------
+
+<h3 id="randu">RandomUtils</h3>
+
+Dependencies
+
+```
+import java.util.Random;
+```
+
+Methods
+
+```java
+int getRandomNumber(int bound)
+String getRandomNumberStr(int length)
+String getMixedRandomStr(int length)
+```
+
+
+
+[`back to content`](#content)
+
+------
+
+<h3 id="dateu">DateUtils</h3>
+
+Dependencies
+
+Methods
+
+Convert
+
+```java
+int getDateIntByStr (String dateStr)
+int getDateIntByDate (Date date)
+String getDateStrByInt (int dateInt)
+Date getDateByStr (String dateStr)
+String getDateFormatStr (Date date, String format)  // getDateStr(Date date)
+Int  getDateFormatInt (Date date, String format)  // yyyyMMdd, yyyyMM, MMdd
+```
+
+Calculate
+
+```java
+int getDayDiff (String startDate, String endDate)
+List<String> getBetweenDates (String startDate, String endDate)
+List<String> getBetweenMonths (String startDate, String endDate)
+Date getAddDate (Date date, int addtion)
+Date getFirstDayOfMonth (Date date) // getFirstDayOfWeek
+Date getLastDayOfMonth (Date date)  // getLastDayOfWeek
+int getWeekNumofMonth (Date date)  // getWeekNumOfYear
+```
+
+[`back to content`](#content)
+
+------
+
+<h3 id="timeu">TimeUtils</h3>
+
+Dependencies
+
+Methods
+
+```java
+Timestamp getCurrentTime()
+int getHourDiff (long startTime, long endTime)
+String getTimeZone()
+```
+
+[`back to content`](#content)
+
+------
+
+<h3 id="encpu">EncryptUtils</h3>
+
+Dependencies
+
+```
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+```
+
+Methods
+
+```java
+String encryptBASE64 (String source)
+String decryptBASE64 (String str)
+String generateSalt()
+```
+
+[`back to content`](#content)
+
+------
+
+<h3 id="md5u">Md5Utils</h3>
+
+Dependencies
+
+Methods
+
+[`back to content`](#content)
+
+------
+
+<h3 id="propu">PropertyUtils</h3>
+
+Dependencies
+
+```
+import java.io.InputStream;
+import java.util.Properties;
+```
+
+Methods
+
+```java
+void load(String filePath)
+String getString (String key)
+int getInt (String key, int def)
+long getLong (String key, long def)
+```
+
+[`back to content`](#content)
+
+------
+
+<h3 id="imgu">ImageUtils</h3>
+
+Dependencies
+
+```
+import javax.imageio.ImageIO;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+java.io.*;
+```
+
+Methods
+
+```java
+boolean isImageFile(String fileExt)
+byte[] resize(byte[] img, int width, int height)
+```
+
+[`back to content`](#content)
+
+------
+
+<h3 id="locu">LocationUtils</h3>
+
+[`back to content`](#content)
+
+------
+
+<h3 id="fileu">FileUtils</h3>
+
+Dependencies
+
+Methods
+
+[`back to content`](#content)
+
+------
+
+<h3 id="zipu">ZipUtils</h3>
+
+Dependencies
+
+Methods
+
+[`back to content`](#content)
+
+------
+
+<h3 id="i18nu">I18nUtils</h3>
+
+Dependencies
+
+Methods
+
+[`back to content`](#content)
+
+------
+
+### javax
+
+<h3 id="ipu">IpUtils</h3>
+
+Dependencies
+
+```
+import javax.servlet.http.HttpServletRequest;
+```
+
+Methods
+
+```java
+String getIpAddr (HttpServletRequest request)
+String getRealIpAddr (HttpServletRequest request)
+```
+
+[`back to content`](#content)
+
+------
+
+<h3 id="reqparamu">RequestParamUtils</h3>
+
+[`back to content`](#content)
+
+------
+
+<h3 id="emailu">EmailUtils</h3>
+
+[`back to content`](#content)
+
+------
+
+### Third Library
+
+<h3 id="jsonu">JsonUtils</h3>
+
+Dependencies
+
+```
+import java.lang.reflect.Type;
+import com.google.gson.Gson;
+```
+
+Methods
+
+```java
+String toJson (Object obj)
+T fromJson (String str, Type type)
+T fromJson (String str, Class<T\> type)
+```
+
+[`back to content`](#content)
+
+------
+
+<h3 id="xmlu">XmlUtils</h3>
+
+Dependencies
+
+Methods
+
+[`back to content`](#content)
+
+------
+
+<h3 id="logu">LogUtils</h3>
+
+Dependencies
+
+```
+import org.apache.log4j.Logger;
+```
+
+Methods
+
+```java
+void debug (String message)
+void info (String message)
+void warn (String message)
+void error (String message)
+```
+
+
+
+[`back to content`](#content)
+
+------
+
+<h3 id="pyu">PinyinUtils</h3>
+
+Dependencies
+
+```
+import net.sourceforge.pinyin4j.PinyinHelper;
+```
+
+Methods
+
+```java
+String getPinyin (String str)
+String getPinyinHeadChar (String str)
+```
+
+
+
+[`back to content`](#content)
+
+------
+
+<h3 id="httpu">HttpUtils</h3>
+
+Dependencies
+
+Methods
+
+[`back to content`](#content)
+
+------
+
+<h3 id="qru">QrCodeUtils</h3>
+
+Dependencies
+
+Methods
+
+[`back to content`](#content)
+
+------
+
+<h3 id="springu">SpringUtils</h3>
+
+Dependencies
+
+Methods
+
+[`back to content`](#content)
+
+------
+
+
+
+--END--

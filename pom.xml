@@ -27,11 +27,6 @@
             <version>${junit-platform.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!--<dependency>
-            <groupId>com.github.apache</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>-->
     </dependencies>
 
     <build>
