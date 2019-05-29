@@ -1,7 +1,30 @@
 # java-commons
 My library of utility.
 
+Dependency this library in Maven Project
 
+- Add the JitPack repository to your build file
+
+  ```xml
+  <repositories>
+      <repository>
+          <id>jitpack.io</id>
+          <url>https://jitpack.io</url>
+      </repository>
+  </repositories>
+  ```
+
+- Add the dependency
+
+  ```xml
+  <dependency>
+      <groupId>com.github.tagnja</groupId>
+      <artifactId>java-commons</artifactId>
+      <version>Tag</version>
+  </dependency>
+  ```
+
+  
 
 <h3 id="content">Content</h3>
 
