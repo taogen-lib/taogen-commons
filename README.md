@@ -56,7 +56,7 @@ Dependency this library in Maven Project
     - [QrCodeUtils](#qru)
     - [SpringUtils](#springu)
   - Others
-    - [I18nUtils](#i18nu)
+    - [x] [I18nUtils](#i18nu)
     - [LogUtils](#logu)
 
 
@@ -103,20 +103,27 @@ Methods
 Convert
 
 ```java
-int str2Int (String str, int defaults)   // str2Long, str2Float, str2Double, Str2Boolean
+int str2Int (String str, int default)
+long str2Long(String str, long default)
+double str2Double(String str, double default)
+boolean Str2Boolean(String str, boolean default)
 ```
 
 Verify
 
 ```java
 boolean isEmpty(String str)
-boolean isEmail(String email)   // isMobile, isMatch(String email,  String regex)
+boolean isEmail(String email)   
+boolean isMobile(String mobile)
+boolean isMatch(String str, String regex)
 ```
 
 Handle
 
 ```java
-String encodeMobile (String mobile)  // encodeBankCard, encodeEmail
+String encodeMobile(String mobile)  
+String encodeEmail(String email)
+String encodeBankCard(String bankcard)
 String jointString (String... strs)
 String toNotNull (String str)
 String expandLength(String str, int len, char fillChar)
@@ -195,29 +202,35 @@ String getMixedRandomStr(int length)
 
 Dependencies
 
+```java
+
+```
+
 Methods
 
-Convert
+Convert 
 
 ```java
-int getDateIntByStr (String dateStr)
-int getDateIntByDate (Date date)
-String getDateStrByInt (int dateInt)
-Date getDateByStr (String dateStr)
-String getDateFormatStr (Date date, String format)  // getDateStr(Date date)
-Int  getDateFormatInt (Date date, String format)  // yyyyMMdd, yyyyMM, MMdd
+//int <--> String <--> Date
+String getDateFormatStr(Date date, DateFormat format)
+Date getDateByStr (String dateStr, DateFormat format)  
+String convertDateStr(String dateStr, DateFormat fromFormat, DateFormat toFormat)
 ```
 
 Calculate
 
 ```java
-int getDayDiff (String startDate, String endDate)
-List<String> getBetweenDates (String startDate, String endDate)
-List<String> getBetweenMonths (String startDate, String endDate)
-Date getAddDate (Date date, int addtion)
-Date getFirstDayOfMonth (Date date) // getFirstDayOfWeek
-Date getLastDayOfMonth (Date date)  // getLastDayOfWeek
-int getWeekNumofMonth (Date date)  // getWeekNumOfYear
+int getField(Date date, int calendarField)
+Date add(Date date, int calendarField, int addtion)
+int getDiff(Date startDate, Date endDate, int calendarField)
+List<String> getBetweenDates(Date startDate, Date endDate, DateFormat format)
+List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat format)
+Date getFirstDayOfWeek(Date date)
+Date getFirstDayOfMonth(Date date) 
+Date getLastDayOfMonth(Date date)
+Date getLastDayOfWeek(Date date) 
+int getWeekNumOfMonth(Date date)  
+int getWeekNumOfYear(Date date)
 ```
 
 [`back to content`](#content)
