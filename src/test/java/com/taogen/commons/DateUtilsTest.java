@@ -57,7 +57,8 @@ public class DateUtilsTest
     {
         // illegal params
         assertThrows(IllegalArgumentException.class, () -> { getField(null, Calendar.DAY_OF_MONTH); });
-        getField(null, 123456); // TODO
+        assertThrows(IllegalArgumentException.class, () -> { getField(null, 123456); });
+
         // expected result
         assertEquals(2019, getField(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1), Calendar.YEAR));
     }
@@ -100,57 +101,81 @@ public class DateUtilsTest
         // expected result
         assertNotNull(getBetweenDates(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1),
                 getDateByStr("2019-01-03", FORMAT_YYYY_MM_DD_1),FORMAT_YYYY_MM_DD_1));
-        assertTrue(getBetweenDates(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1),
-                getDateByStr("2019-01-03", FORMAT_YYYY_MM_DD_1),FORMAT_YYYY_MM_DD_1).size() == 2);
+        assertEquals(2, getBetweenDates(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1),
+                getDateByStr("2019-01-03", FORMAT_YYYY_MM_DD_1),FORMAT_YYYY_MM_DD_1));
     }
 
     @Test
     public void getBetweenMonthsTest()
     {
         // illegal params
+        assertNull(getBetweenMonths(null, new Date(), FORMAT_YYYY_MM_DD_1));
+        assertNull(getBetweenMonths(new Date(), null, FORMAT_YYYY_MM_DD_1));
+        assertNull(getBetweenMonths(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1), new Date(), null));
+
         // expected result
+        assertNull(getBetweenMonths(getDateByStr("2019-02", FORMAT_YYYYMM_1), getDateByStr("2019-01", FORMAT_YYYYMM_1), FORMAT_YYYYMM_1));
+        assertEquals("2019-06", getBetweenMonths(new Date(), new Date(), FORMAT_YYYYMM_1));
+        assertEquals(2, getBetweenMonths(getDateByStr("2019-01", FORMAT_YYYYMM_1), getDateByStr("2019-02", FORMAT_YYYYMM_1), FORMAT_YYYYMM_1));
     }
 
     @Test
     public void getFirstDayOfWeekTest()
     {
         // illegal params
+        assertNull(getFirstDayOfWeek(null));
+
         // expected result
+        assertEquals(getDateByStr("2019-06-10",FORMAT_YYYY_MM_DD_1), getFirstDayOfWeek(getDateByStr("2019-06-11", FORMAT_YYYY_MM_DD_1)));
     }
 
     @Test
     public void getFirstDayOfMonthTest()
     {
         // illegal params
+        assertNull(getFirstDayOfMonth(null));
+
         // expected result
+        assertEquals(getDateByStr("2019-06-01",FORMAT_YYYY_MM_DD_1), getFirstDayOfMonth(getDateByStr("2019-06-10",FORMAT_YYYY_MM_DD_1)));
     }
 
     @Test
     public void getLastDayOfWeekTest()
     {
         // illegal params
+        assertNull(getLastDayOfWeek(null));
+
         // expected result
+        assertEquals(getDateByStr("2019-06-16", FORMAT_YYYY_MM_DD_1), getLastDayOfWeek(getDateByStr("2019-06-10", FORMAT_YYYY_MM_DD_1)));
     }
 
     @Test
     public void getLastDayOfMonthTest()
     {
         // illegal params
+        assertNull(getLastDayOfMonth(null));
+
         // expected result
+        assertEquals(getDateByStr("2019-06-30", FORMAT_YYYY_MM_DD_1), getLastDayOfMonth(getDateByStr("2019-06-10", FORMAT_YYYY_MM_DD_1)));
     }
 
     @Test
     public void getWeekNumofMonthTest()
     {
         // illegal params
+        assertNull(getWeekNumofMonth(null));
         // expected result
+        assertEquals(3, getWeekNumofMonth(getDateByStr("2019-06-10", FORMAT_YYYY_MM_DD_1)));
     }
 
     @Test
     public void getWeekNumOfYearTest()
     {
         // illegal params
+        assertNull(getWeekNumOfYear(null));
+
         // expected result
+        assertEquals(24, getWeekNumOfYear(getDateByStr("2019-06-10", FORMAT_YYYY_MM_DD_1)));
     }
     // >> Calculate
 }

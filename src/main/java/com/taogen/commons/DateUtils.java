@@ -79,9 +79,15 @@ public class DateUtils
 
     // Calculate <<
 
-    public static int getField(Date date, int calendarField)
+    public static int getField(Date date, int calendarField) throws IllegalArgumentException
     {
-        return -1;
+        if (date == null || calendarField < 0 || calendarField >= Calendar.FIELD_COUNT)
+        {
+            throw new IllegalArgumentException();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(calendarField);
     }
 
     public static Date add(Date date, int calendarField, int addtion)
