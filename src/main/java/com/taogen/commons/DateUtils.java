@@ -90,9 +90,9 @@ public class DateUtils
         return calendar.get(calendarField);
     }
 
-    public static Date add(Date date, int calendarField, int addtion)
+    public static Date add(Date date, int calendarField, int addtion) throws IllegalArgumentException
     {
-        if (date == null)
+        if (date == null || calendarField < 0 || calendarField >= Calendar.FIELD_COUNT)
         {
             throw new IllegalArgumentException();
         }
