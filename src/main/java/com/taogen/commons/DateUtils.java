@@ -121,17 +121,17 @@ public class DateUtils
         {
             throw new IllegalArgumentException();
         }
-        List<String> result = new ArrayList<>();
+        List<String> result = new LinkedList<>();
         Calendar calendar1 = Calendar.getInstance();
         calendar1.setTime(startDate);
         Calendar calendar2 = Calendar.getInstance();
         calendar2.setTime(endDate);
-        while (calendar1.compareTo(calendar2) <= 0 && calendar2.get(Calendar.YEAR) > 1)
+        while (calendar2.compareTo(calendar1) >= 0 && calendar2.get(Calendar.YEAR) > 1)
         {
-            result.add(formater.format(calendar1.getTime()));
-            calendar1.add(Calendar.DAY_OF_MONTH, 1);
+            result.add(0,formater.format(calendar2.getTime()));
+            calendar2.add(Calendar.DAY_OF_MONTH, -1);
         }
-        return result;
+        return new ArrayList<>(result);
     }
     public static List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat format)
     {
