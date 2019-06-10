@@ -3,10 +3,10 @@ package com.taogen.commons;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class DateUtils
 {
@@ -21,6 +21,8 @@ public class DateUtils
     public static final DateFormat FORMAT_MMDD = new SimpleDateFormat("MMdd");
     public static final DateFormat FORMAT_MMDD_1 = new SimpleDateFormat("MM-dd");
     public static final DateFormat FORMAT_MMDD_2 = new SimpleDateFormat("MM/dd");
+
+    public static final DateFormat FORMAT_YYYY_MM_DD_HH_MM_SS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     // TODO remove it
     public static void main(String[] args)
@@ -102,14 +104,34 @@ public class DateUtils
         return calendar.getTime();
     }
 
-    public static int getDiff(Date startDate, Date endDate, int calendarField)
+    public static long getDiffDays(Date firstDate, Date secondDate) throws IllegalArgumentException
     {
-        return -1;
+        if (firstDate == null || secondDate == null)
+        {
+            throw new IllegalArgumentException();
+        }
+        long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return diff;
     }
 
-    public static List<String> getBetweenDates(Date startDate, Date endDate, DateFormat format)
+    public static List<String> getBetweenDates(Date startDate, Date endDate, DateFormat formater)
     {
-        return new ArrayList<>();
+        if (startDate == null || endDate == null || startDate.getTime() > endDate.getTime() || formater == null)
+        {
+            throw new IllegalArgumentException();
+        }
+        List<String> result = new ArrayList<>();
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(startDate);
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(endDate);
+        while (calendar1.compareTo(calendar2) <= 0 && calendar2.get(Calendar.YEAR) > 1)
+        {
+            result.add(formater.format(calendar1.getTime()));
+            calendar1.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        return result;
     }
     public static List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat format)
     {

@@ -2,8 +2,7 @@ package com.taogen.commons;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import static com.taogen.commons.DateUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -78,14 +77,17 @@ public class DateUtilsTest
     public void getDiffTest()
     {
         // illegal params
-        assertThrows(IllegalArgumentException.class, () -> {getDiff(null, new Date(), Calendar.DAY_OF_MONTH); });
-        assertThrows(IllegalArgumentException.class, () -> {getDiff(new Date(), null, Calendar.DAY_OF_MONTH); });
-        assertThrows(IllegalArgumentException.class, () -> {getDiff(new Date(), new Date(), 123456); });
+        assertThrows(IllegalArgumentException.class, () ->{getDiffDays(null, new Date());});
+        assertThrows(IllegalArgumentException.class, () ->{getDiffDays(new Date(), null);});
+
         // expected result
-        assertEquals(3, getDiff(
-                getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1),
-                getDateByStr("2019-01-04", FORMAT_YYYY_MM_DD_1),
-                Calendar.DAY_OF_MONTH
+        assertEquals(3, getDiffDays(
+                getDateByStr("2019-01-01 09:01:01", FORMAT_YYYY_MM_DD_HH_MM_SS),
+                getDateByStr("2019-01-04 09:01:01", FORMAT_YYYY_MM_DD_HH_MM_SS)
+        ));
+        assertEquals(2, getDiffDays(
+                getDateByStr("2019-01-01 09:01:01", FORMAT_YYYY_MM_DD_HH_MM_SS),
+                getDateByStr("2019-01-04 09:00:00", FORMAT_YYYY_MM_DD_HH_MM_SS)
         ));
     }
 
@@ -93,15 +95,16 @@ public class DateUtilsTest
     public void getBetweenDatesTest()
     {
         // illegal params
-        assertNull(getBetweenDates(null, new Date(), FORMAT_YYYY_MM_DD_1));
-        assertNull(getBetweenDates(new Date(), null, FORMAT_YYYY_MM_DD_1));
-        assertNull(getBetweenDates(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1),
-                getDateByStr("2019-01-02", FORMAT_YYYY_MM_DD_1), null));
+        assertThrows(IllegalArgumentException.class, () ->{getBetweenDates(null, new Date(), FORMAT_YYYY_MM_DD_1);});
+        assertThrows(IllegalArgumentException.class, () ->{getBetweenDates(new Date(), null, FORMAT_YYYY_MM_DD_1);});
+        assertThrows(IllegalArgumentException.class, () ->{getBetweenDates(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1),
+                getDateByStr("2019-01-02", FORMAT_YYYY_MM_DD_1), null);});
+        assertThrows(IllegalArgumentException.class, () ->{getBetweenDates(getDateByStr("2019-01-02", FORMAT_YYYY_MM_DD_1),
+                getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1), FORMAT_YYYY_MM_DD_1);});
 
         // expected result
-        assertNotNull(getBetweenDates(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1),
-                getDateByStr("2019-01-03", FORMAT_YYYY_MM_DD_1),FORMAT_YYYY_MM_DD_1));
-        assertEquals(2, getBetweenDates(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1),
+        List<String> expect = new ArrayList<>(Arrays.asList("2019-01-01", "2019-01-02", "2019-01-03"));
+        assertEquals(expect, getBetweenDates(getDateByStr("2019-01-01", FORMAT_YYYY_MM_DD_1),
                 getDateByStr("2019-01-03", FORMAT_YYYY_MM_DD_1),FORMAT_YYYY_MM_DD_1));
     }
 
