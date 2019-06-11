@@ -34,7 +34,7 @@ Dependency this library in Maven Project
     - [x] [EncodingUtils](#encu)
     - [NumberUtils](#numu)
     - [x] [RandomUtils](#randu)
-    - [DateUtils](#dateu)
+    - [x] [DateUtils](#dateu)
     - [TimeUtils](#timeu)
     - [EncryptUtils](#encpu)
     - [Md5Utils](#md5u)
@@ -203,7 +203,10 @@ String getMixedRandomStr(int length)
 Dependencies
 
 ```java
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 ```
 
 Methods
@@ -222,15 +225,15 @@ Calculate
 ```java
 int getField(Date date, int calendarField)
 Date add(Date date, int calendarField, int addtion)
-int getDiff(Date startDate, Date endDate, int calendarField)
-List<String> getBetweenDates(Date startDate, Date endDate, DateFormat format)
-List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat format)
+long getDiffDays(Date firstDate, Date secondDate)
+List<String> getBetweenDates(Date startDate, Date endDate, DateFormat formatter)
+List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat formatter)
 Date getFirstDayOfWeek(Date date)
 Date getFirstDayOfMonth(Date date) 
 Date getLastDayOfMonth(Date date)
 Date getLastDayOfWeek(Date date) 
-int getWeekNumOfMonth(Date date)  
-int getWeekNumOfYear(Date date)
+int getWeekOfMonth(Date date)  
+int getWeekOfYear(Date date)
 ```
 
 [`back to content`](#content)

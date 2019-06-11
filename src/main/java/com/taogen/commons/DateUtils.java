@@ -91,8 +91,6 @@ public class DateUtils
         return calendar.getTime();
     }
 
-
-
     public static long getDiffDays(Date firstDate, Date secondDate) throws IllegalArgumentException
     {
         if (firstDate == null || secondDate == null)
@@ -105,14 +103,14 @@ public class DateUtils
         return diff;
     }
 
-    public static List<String> getBetweenDates(Date startDate, Date endDate, DateFormat formater)
+    public static List<String> getBetweenDates(Date startDate, Date endDate, DateFormat formatter)
     {
-        return new ArrayList<>(getBetweens(startDate, endDate, formater, Calendar.DAY_OF_MONTH));
+        return new ArrayList<>(getBetweens(startDate, endDate, formatter, Calendar.DAY_OF_MONTH));
     }
 
-    public static List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat formater)
+    public static List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat formatter)
     {
-        return new ArrayList<>(getBetweens(startDate, endDate, formater, Calendar.MONTH));
+        return new ArrayList<>(getBetweens(startDate, endDate, formatter, Calendar.MONTH));
     }
 
     public static Date getFirstDayOfWeek(Date date) throws IllegalArgumentException
@@ -190,10 +188,10 @@ public class DateUtils
         return calendar;
     }
 
-    public static List<String> getBetweens(Date startDate, Date endDate, DateFormat formater,
-                                           int calendarField) throws IllegalArgumentException
+    public static List<String> getBetweens(Date startDate, Date endDate, DateFormat formatter,
+         int calendarField) throws IllegalArgumentException
     {
-        if (startDate == null || endDate == null || endDate.before(startDate) || formater == null
+        if (startDate == null || endDate == null || endDate.before(startDate) || formatter == null
                 || ! isLegalCalendarField(calendarField))
         {
             throw new IllegalArgumentException();
@@ -205,7 +203,7 @@ public class DateUtils
         calendar2.setTime(endDate);
         while (calendar2.compareTo(calendar1) >= 0)
         {
-            result.add(0,formater.format(calendar2.getTime()));
+            result.add(0,formatter.format(calendar2.getTime()));
             calendar2.add(calendarField, -1);
         }
         return result;
