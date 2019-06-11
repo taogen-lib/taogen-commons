@@ -3,10 +3,7 @@ package com.taogen.commons;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class DateUtils
 {
@@ -23,6 +20,8 @@ public class DateUtils
     public static final DateFormat FORMAT_MMDD_2 = new SimpleDateFormat("MM/dd");
 
     public static final DateFormat FORMAT_YYYY_MM_DD_HH_MM_SS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    public static final long DAY_MILLISECONDS = 24 * 60 * 60 * 1000;
 
     // TODO remove it
     public static void main(String[] args)
@@ -83,7 +82,7 @@ public class DateUtils
 
     public static int getField(Date date, int calendarField) throws IllegalArgumentException
     {
-        if (date == null || calendarField < 0 || calendarField >= Calendar.FIELD_COUNT)
+        if (date == null || ! isLegalCalendarField(calendarField))
         {
             throw new IllegalArgumentException();
         }
@@ -94,7 +93,7 @@ public class DateUtils
 
     public static Date add(Date date, int calendarField, int addtion) throws IllegalArgumentException
     {
-        if (date == null || calendarField < 0 || calendarField >= Calendar.FIELD_COUNT)
+        if (date == null || ! isLegalCalendarField(calendarField))
         {
             throw new IllegalArgumentException();
         }
@@ -104,6 +103,8 @@ public class DateUtils
         return calendar.getTime();
     }
 
+
+
     public static long getDiffDays(Date firstDate, Date secondDate) throws IllegalArgumentException
     {
         if (firstDate == null || secondDate == null)
@@ -111,13 +112,101 @@ public class DateUtils
             throw new IllegalArgumentException();
         }
         long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        //long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        long diff = diffInMillies / DateUtils.DAY_MILLISECONDS;
         return diff;
     }
 
     public static List<String> getBetweenDates(Date startDate, Date endDate, DateFormat formater)
     {
-        if (startDate == null || endDate == null || startDate.getTime() > endDate.getTime() || formater == null)
+        return new ArrayList<>(getBetweens(startDate, endDate, formater, Calendar.DAY_OF_MONTH));
+    }
+
+    public static List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat formater)
+    {
+        return new ArrayList<>(getBetweens(startDate, endDate, formater, Calendar.MONTH));
+    }
+
+    public static Date getFirstDayOfWeek(Date date) throws IllegalArgumentException
+    {
+        Calendar calendar = getCalendarWithDate(date);
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        return calendar.getTime();
+    }
+
+    public static Date getFirstDayOfMonth (Date date) throws IllegalArgumentException
+    {
+        Calendar calendar = getCalendarWithDate(date);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTime();
+    }
+
+    public static Date getLastDayOfWeek(Date date) throws IllegalArgumentException
+    {
+        Calendar calendar = getCalendarWithDate(date);
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        for (int i = 1; i < 7; i++)
+        {
+            calendar.add(Calendar.DAY_OF_WEEK, 1);
+        }
+        return calendar.getTime();
+    }
+
+    public static Date getLastDayOfMonth (Date date) throws IllegalArgumentException
+    {
+        Calendar calendar = getCalendarWithDate(date);
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return calendar.getTime();
+    }
+
+    public static int getWeekOfMonth (Date date) throws IllegalArgumentException
+    {
+        Calendar calendar = getCalendarWithDate(date);
+        calendar.setMinimalDaysInFirstWeek(1);
+        return calendar.get(Calendar.WEEK_OF_MONTH);
+    }
+
+    public static int getWeekOfYear(Date date) throws IllegalArgumentException
+    {
+        Calendar calendar = getCalendarWithDate(date);
+        return calendar.get(Calendar.WEEK_OF_YEAR);
+    }
+
+    // >> Calculate
+
+
+    // ----------------------------------------------------------------
+
+    // assist <<
+
+    public static boolean isLegalCalendarField(int calendarField)
+    {
+        boolean result = false;
+        if (calendarField >= 0 || calendarField < Calendar.FIELD_COUNT)
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    public static Calendar getCalendarWithDate(Date date)
+    {
+        if (date == null)
+        {
+            throw new IllegalArgumentException();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+
+    public static List<String> getBetweens(Date startDate, Date endDate, DateFormat formater,
+                                           int calendarField) throws IllegalArgumentException
+    {
+        if (startDate == null || endDate == null || endDate.before(startDate) || formater == null
+                || ! isLegalCalendarField(calendarField))
         {
             throw new IllegalArgumentException();
         }
@@ -126,46 +215,13 @@ public class DateUtils
         calendar1.setTime(startDate);
         Calendar calendar2 = Calendar.getInstance();
         calendar2.setTime(endDate);
-        while (calendar2.compareTo(calendar1) >= 0 && calendar2.get(Calendar.YEAR) > 1)
+        while (calendar2.compareTo(calendar1) >= 0)
         {
             result.add(0,formater.format(calendar2.getTime()));
-            calendar2.add(Calendar.DAY_OF_MONTH, -1);
+            calendar2.add(calendarField, -1);
         }
-        return new ArrayList<>(result);
-    }
-    public static List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat format)
-    {
-        return new ArrayList<>();
+        return result;
     }
 
-    public static Date getFirstDayOfWeek(Date date)
-    {
-        return new Date();
-    }
-
-    public static Date getFirstDayOfMonth (Date date)
-    {
-        return new Date();
-    }
-
-    public static Date getLastDayOfWeek(Date date)
-    {
-        return new Date();
-    }
-
-    public static Date getLastDayOfMonth (Date date)
-    {
-        return new Date();
-    }
-
-    public static int getWeekNumofMonth (Date date)
-    {
-        return -1;
-    }
-    public static int getWeekNumOfYear(Date date)
-    {
-        return -1;
-    }
-
-    // >> Calculate
+    // >> assist
 }
