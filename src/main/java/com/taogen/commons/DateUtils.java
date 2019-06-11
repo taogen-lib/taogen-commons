@@ -23,18 +23,6 @@ public class DateUtils
 
     public static final long DAY_MILLISECONDS = 24 * 60 * 60 * 1000;
 
-    // TODO remove it
-    public static void main(String[] args)
-    {
-//        String result = DateUtils.getDateFormatStr(DateUtils.getDateByStr("2019-05-01", FORMAT_YYYY_MM_DD_1), FORMAT_YYYYMMMDD);
-//        System.out.println(StringUtils.str2Int(result, -1));
-//        System.out.println(StringUtils.str2Int(convertDateStr("2019-05-02", FORMAT_YYYY_MM_DD_1, FORMAT_YYYYMMMDD), -1));
-//        System.out.println(new SimpleDateFormat("yyyy-123-dd").format(new Date()));
-        System.out.println(add(new Date(), 111, 1));
-        Integer.parseInt("12");
-    }
-
-
     // Convert <<
 
     public static String getDateFormatStr(Date date, DateFormat format)
