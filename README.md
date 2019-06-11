@@ -67,6 +67,12 @@ Dependency this library in Maven Project
 
 Defining methods of utility --> writing fake implement class --> writing test class --> writing real implement class and pass its test.
 
+### Test Case Conventions
+
+- Illegal parameters
+- bound value + middle value
+- Cover all DD-paths
+
 ### Assertions of Junit 5 
 
 ```java
