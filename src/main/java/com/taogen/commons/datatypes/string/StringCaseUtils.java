@@ -75,7 +75,7 @@ public class StringCaseUtils {
         return covertAnyCaseToPascalCase(source, "-");
     }
 
-    private static String covertAnyCaseToPascalCase(String source, String joinChar) {
+    public static String covertAnyCaseToPascalCase(String source, String joinChar) {
         source = source.toLowerCase();
         String firstLetter = source.substring(0, 1);
         source = source.replaceFirst(firstLetter, firstLetter.toUpperCase());

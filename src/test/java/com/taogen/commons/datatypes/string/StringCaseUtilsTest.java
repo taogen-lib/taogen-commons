@@ -44,6 +44,11 @@ class StringCaseUtilsTest {
     }
 
     @Test
+    void covertAnyCaseToPascalCase(String source, String joinChar) {
+
+    }
+
+    @Test
     void firstLetterToUpperCase() {
         assertNull(StringCaseUtils.firstLetterToUpperCase(null));
         assertEquals("", StringCaseUtils.firstLetterToUpperCase(""));
