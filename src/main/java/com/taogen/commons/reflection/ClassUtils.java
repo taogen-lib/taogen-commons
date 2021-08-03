@@ -76,7 +76,7 @@ public class ClassUtils {
     }
 
     /**
-     * The Class must have getter method
+     * The Class must have setter method
      *
      * @param obj
      * @param fieldName
