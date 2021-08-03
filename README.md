@@ -422,7 +422,7 @@ Methods
 ```java
 String toJson (Object obj)
 T fromJson (String str, Type type)
-T fromJson (String str, Class<T\> type)
+T fromJson (String str, Class<T> type)
 ```
 
 [`back to content`](#content)
