@@ -2,22 +2,20 @@
 
 ## Utilities
 
-- Data Types
+- [Data Types](#Data Types)
   - String
     - StringUtils
     - StringCaseUtils
     - CharacterEncodingUtils
     - PinyinUtils
-    - EncryptUtils
-    - Md5Utils
   - Date and Time
     - DateUtils
     - TimeUtils
   - Number
     - NumberUtils
     - RandomUtils
-- Collections
-- IO and Files
+- [Collections](#Collections)
+- [IO and Files](#IO and Files)
   - FileUtils
   - ZipUtils
   - PropertyUtils
@@ -25,27 +23,31 @@
   - XmlUtils
   - ImageUtils
   - ExcelUtils
-- Reflection
+- [Reflection](#Reflection)
   - ClassUtils
-- Network
+- [Security](#Security)
+  - EncodeUtils
+  - HashUtils
+  - EncryptUtils
+- [Network](#Network)
   - HttpUtils
   - IpUtils
-- Web
+- [Web](#Web)
   - RequestParamUtils
   - Spring Utils
-- Data Access
-- Others
+- [Data Access](#Data Access)
+- [Others](#Others)
   - SystemUtils
   - EmailUtils
   - QrCodeUtils
   - I18nUtils
-- Third Party
+- [Third Party APIs](#Third Party APIs)
   - LocationUtils
   - LogUtils
 
 ## Details
 
-### Native Data Types
+### Data Types
 
 - String
   - StringUtils
@@ -87,13 +89,6 @@
   - PinyinUtils
     - String getPinyin (String str)
     - String getPinyinHeadChar (String str)
-  - EncodeUtils
-    - String encryptBASE64 (String source)
-    - String decryptBASE64 (String str)
-  - HashingUtils
-    - String md5(String source)
-  - EncryptUtils
-    - String generateSalt()
 - Date and Time
   - DateUtils
     - Conversion
@@ -153,6 +148,16 @@
   - Set<String> getFieldValuesFromList(List list, Field field)
   - Object getFieldValueFromObject(Object obj, String fieldName)
   - void setFieldValueToObject(Object obj, String fieldName, Object fieldValue)
+
+### Security
+
+- EncodeUtils
+  - String encryptBASE64 (String source)
+  - String decryptBASE64 (String str)
+- HashUtils
+  - String md5(String source)
+- EncryptUtils
+  - String generateSalt()
 
 ### Network
 
