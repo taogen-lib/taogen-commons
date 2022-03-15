@@ -1,5 +1,6 @@
-package com.taogen.commons;
+package com.taogen.commons.datatypes.string;
 
+import com.taogen.commons.datatypes.string.EncodingUtils;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
@@ -8,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EncodingUtilsTest
 {
-    // verification << 
+    // verification <<
 
     @Test
     void isChineseTest()

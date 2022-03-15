@@ -1,4 +1,4 @@
-package com.taogen.commons;
+package com.taogen.commons.datatypes.datetime;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -1,10 +1,10 @@
-package com.taogen.commons;
+package com.taogen.commons.datatypes.datetime;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static com.taogen.commons.DateUtils.*;
+import static com.taogen.commons.datatypes.datetime.DateUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DateUtilsTest

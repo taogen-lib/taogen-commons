@@ -1,4 +1,6 @@
-package com.taogen.commons;
+package com.taogen.commons.datatypes.string;
+
+import com.taogen.commons.datatypes.string.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

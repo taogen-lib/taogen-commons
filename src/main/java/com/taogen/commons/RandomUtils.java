@@ -1,5 +1,7 @@
 package com.taogen.commons;
 
+import com.taogen.commons.datatypes.string.StringUtils;
+
 import java.util.Random;
 
 public class RandomUtils

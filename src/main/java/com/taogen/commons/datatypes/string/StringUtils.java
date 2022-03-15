@@ -1,4 +1,4 @@
-package com.taogen.commons;
+package com.taogen.commons.datatypes.string;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;

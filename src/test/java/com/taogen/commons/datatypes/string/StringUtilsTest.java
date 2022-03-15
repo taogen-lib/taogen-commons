@@ -1,5 +1,6 @@
-package com.taogen.commons;
+package com.taogen.commons.datatypes.string;
 
+import com.taogen.commons.datatypes.string.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
