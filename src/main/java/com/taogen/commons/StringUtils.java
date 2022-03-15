@@ -177,4 +177,16 @@ public class StringUtils
 
     // ------------------------------------------------------------------------------
 
+    public static int countOccurrencesOfSubstring(String str, String sub) {
+        if (str == null || sub == null || str.length() == 0 || sub.length() == 0) {
+            return 0;
+        }
+        int count = 0;
+        int idx = 0;
+        while ((idx = str.indexOf(sub, idx)) != -1) {
+            count++;
+            idx += sub.length();
+        }
+        return count;
+    }
 }
