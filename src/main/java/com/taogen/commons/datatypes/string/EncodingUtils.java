@@ -1,7 +1,5 @@
 package com.taogen.commons.datatypes.string;
 
-import com.taogen.commons.datatypes.string.StringUtils;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -9,28 +7,23 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EncodingUtils
-{
+public class EncodingUtils {
 
     // verification <<
 
     public static final Pattern CHINESE_PATTERN = Pattern.compile("[\\u4E00-\\u9FA5]");
     public static final Pattern EMOJI_PATTERN = Pattern.compile("([\\x{10000}-\\x{10ffff}\ud800-\udfff])");
 
-    public static boolean isChinese(String str)
-    {
-        if (str == null)
-        {
+    public static boolean isChinese(String str) {
+        if (str == null) {
             return false;
         }
         Matcher matcher = CHINESE_PATTERN.matcher(str);
         return matcher.find();
     }
 
-    public static boolean isEmoji(String str)
-    {
-        if (str == null)
-        {
+    public static boolean isEmoji(String str) {
+        if (str == null) {
             return false;
         }
         Matcher matcher = EMOJI_PATTERN.matcher(str);
@@ -43,44 +36,31 @@ public class EncodingUtils
 
     // Convert <<
 
-    public static String iso2Utf8(String str)
-    {
-        if (StringUtils.isEmpty(str))
-        {
+    public static String iso2Utf8(String str) {
+        if (StringUtils.isEmpty(str)) {
             return str;
-        }
-        else
-        {
-            try
-            {
+        } else {
+            try {
                 return new String(str.getBytes(StandardCharsets.ISO_8859_1.toString()), StandardCharsets.UTF_8.toString());
-            }
-            catch (UnsupportedEncodingException e)
-            {
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
                 return str;
             }
         }
     }
 
-    public static String emojiConvert (String str)
-    {
-        if (str == null)
-        {
+    public static String emojiConvert(String str) {
+        if (str == null) {
             return null;
         }
         Matcher matcher = EMOJI_PATTERN.matcher(str);
         StringBuffer sb = new StringBuffer();
-        while (matcher.find())
-        {
-            try
-            {
+        while (matcher.find()) {
+            try {
 //				matcher.appendReplacement(sb, "[["
 //						+ URLEncoder.encode(matcher.group(1), "UTF-8") + "]]");
                 matcher.appendReplacement(sb, URLEncoder.encode(matcher.group(1), StandardCharsets.UTF_8.toString()));
-            }
-            catch (UnsupportedEncodingException e)
-            {
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
@@ -89,17 +69,12 @@ public class EncodingUtils
 
     }
 
-    public static String emojiRecovery (String str)
-    {
+    public static String emojiRecovery(String str) {
         String output = null;
-        if (str != null)
-        {
-            try
-            {
+        if (str != null) {
+            try {
                 output = URLDecoder.decode(str, StandardCharsets.UTF_8.toString());
-            }
-            catch (UnsupportedEncodingException e)
-            {
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
@@ -131,7 +106,19 @@ public class EncodingUtils
 //		return sb.toString();
 //    }
 
-
+    public static String filterEmoji(String source) {
+        if (source != null) {
+//            Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
+//                    Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
+            Matcher emojiMatcher = EMOJI_PATTERN.matcher(source);
+            if (emojiMatcher.find()) {
+                source = emojiMatcher.replaceAll("");
+                return source;
+            }
+            return source;
+        }
+        return source;
+    }
 
     // >> Convert
 
