@@ -121,7 +121,7 @@ public class DateUtilsTest
         assertThrows(IllegalArgumentException.class, () ->{ getBetweenMonths(getDateByStr("2019-02", FORMAT_YYYYMM_1), getDateByStr("2019-01", FORMAT_YYYYMM_1), FORMAT_YYYYMM_1); });
 
         // expected result
-        assertEquals(Arrays.asList("2019-06"), getBetweenMonths(new Date(), new Date(), FORMAT_YYYYMM_1));
+        assertEquals(Arrays.asList(FORMAT_YYYYMM_1.format(new Date())), getBetweenMonths(new Date(), new Date(), FORMAT_YYYYMM_1));
         assertEquals(Arrays.asList("2019-01", "2019-02"), getBetweenMonths(getDateByStr("2019-01", FORMAT_YYYYMM_1), getDateByStr("2019-02", FORMAT_YYYYMM_1), FORMAT_YYYYMM_1));
     }
 

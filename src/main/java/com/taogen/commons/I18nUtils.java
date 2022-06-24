@@ -1,6 +1,9 @@
 package com.taogen.commons;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class I18nUtils
@@ -12,13 +15,13 @@ public class I18nUtils
 //	private static final String DIRECTORY_PATH = "src/i18n";
 
 
-	private static List<ResourceBundle> load(Locale locale)
-	{
+	private static List<ResourceBundle> load(Locale locale) throws UnsupportedEncodingException {
 		List<ResourceBundle> bundleList = new ArrayList<>();
 		// web
 		String path = null;
 		path = I18nUtils.class.getClassLoader().getResource(DIRECTORY_PATH).getPath();
-		File dir = new File(path);
+		// file path may contain whitespace characters %20. So we need to decode.
+		File dir = new File(URLDecoder.decode(path, StandardCharsets.UTF_8.toString()));
 		// local
 //		File dir = new File(DIRECTORY_PATH);
 
@@ -55,21 +58,20 @@ public class I18nUtils
 		}
 		return bundleList;
 	}
-	
-	public static String getMessage(String code, Locale locale)
-	{
+
+	public static String getMessage(String code, Locale locale) throws UnsupportedEncodingException {
 		if (code == null)
 		{
 			return null;
 		}
-		
+
 		if (locale == null)
 		{
 			locale = Locale.getDefault();
 		}
-		
+
 		List<ResourceBundle> bundleList = load(locale);
-		
+
 		for (ResourceBundle b : bundleList)
 		{
 			if (b.containsKey(code))
@@ -80,22 +82,21 @@ public class I18nUtils
 		}
 		return null;
 	}
-	
+
 	@SuppressWarnings("static-access")
-	public static String getMessageFormat(String code, Locale locale, Object... objs)
-	{
+	public static String getMessageFormat(String code, Locale locale, Object... objs) throws UnsupportedEncodingException {
 		if (code == null)
 		{
 			return null;
 		}
-		
+
 		if (locale == null)
 		{
 			locale = Locale.getDefault();
 		}
-		
+
 		List<ResourceBundle> bundleList = load(locale);
-		
+
 		for (ResourceBundle b : bundleList)
 		{
 			if (b.containsKey(code))
@@ -107,18 +108,17 @@ public class I18nUtils
 		}
 		return null;
 	}
-	
-	public static String getMessage(String code)
-	{
+
+	public static String getMessage(String code) throws UnsupportedEncodingException {
 		if (code == null)
 		{
 			return null;
 		}
-		
+
 		Locale locale = Locale.getDefault();
-		
+
 		List<ResourceBundle> bundleList = load(locale);
-		
+
 		for (ResourceBundle b : bundleList)
 		{
 			if (b.containsKey(code))
