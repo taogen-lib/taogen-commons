@@ -1,9 +1,11 @@
 package com.taogen.commons;
 
+import com.taogen.commons.io.FileUtils;
+
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class I18nUtils
@@ -15,13 +17,12 @@ public class I18nUtils
 //	private static final String DIRECTORY_PATH = "src/i18n";
 
 
-	private static List<ResourceBundle> load(Locale locale) throws UnsupportedEncodingException {
+	private static List<ResourceBundle> load(Locale locale) throws URISyntaxException {
 		List<ResourceBundle> bundleList = new ArrayList<>();
 		// web
-		String path = null;
-		path = I18nUtils.class.getClassLoader().getResource(DIRECTORY_PATH).getPath();
-		// file path may contain whitespace characters %20. So we need to decode.
-		File dir = new File(URLDecoder.decode(path, StandardCharsets.UTF_8.toString()));
+		URL url = FileUtils.class.getClassLoader().getResource(DIRECTORY_PATH);
+		File dir = Paths.get(url.toURI()).toFile();
+
 		// local
 //		File dir = new File(DIRECTORY_PATH);
 
@@ -59,7 +60,7 @@ public class I18nUtils
 		return bundleList;
 	}
 
-	public static String getMessage(String code, Locale locale) throws UnsupportedEncodingException {
+	public static String getMessage(String code, Locale locale) throws URISyntaxException {
 		if (code == null)
 		{
 			return null;
@@ -84,7 +85,7 @@ public class I18nUtils
 	}
 
 	@SuppressWarnings("static-access")
-	public static String getMessageFormat(String code, Locale locale, Object... objs) throws UnsupportedEncodingException {
+	public static String getMessageFormat(String code, Locale locale, Object... objs) throws URISyntaxException {
 		if (code == null)
 		{
 			return null;
@@ -109,7 +110,7 @@ public class I18nUtils
 		return null;
 	}
 
-	public static String getMessage(String code) throws UnsupportedEncodingException {
+	public static String getMessage(String code) throws URISyntaxException {
 		if (code == null)
 		{
 			return null;
