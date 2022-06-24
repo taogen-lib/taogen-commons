@@ -20,7 +20,7 @@ public class FileUtils {
         return fileName.substring(index + 1);
     }
 
-    public static String escapeFileName(String fileName) {
+    public static String removeIllegalCharactersFromFileName(String fileName) {
         List<Character> windowsReservedChars = Arrays.asList('\\', '/', ':', '*', '?', '"', '<', '>', '|');
         List<Character> otherChars = Arrays.asList('\r', '\n', '\t');
         if (fileName == null) {

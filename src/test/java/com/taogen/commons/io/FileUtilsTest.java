@@ -22,8 +22,8 @@ class FileUtilsTest {
 
     @Test
     void escapeFileName() {
-        assertDoesNotThrow(() -> createFile(FileUtils.escapeFileName("test")));
-        assertDoesNotThrow(() -> createFile(FileUtils.escapeFileName("test.txt")));
+        assertDoesNotThrow(() -> createFile(FileUtils.removeIllegalCharactersFromFileName("test")));
+        assertDoesNotThrow(() -> createFile(FileUtils.removeIllegalCharactersFromFileName("test.txt")));
         List<String> specialFileNames = Arrays.asList(
                 "test\\characters",
                 "test/characters", "test:characters",
@@ -34,7 +34,7 @@ class FileUtilsTest {
                 "test\tcharacters");
         for (String fileName : specialFileNames) {
             assertThrows(IllegalArgumentException.class, () -> createFile(fileName));
-            assertDoesNotThrow(() -> createFile(FileUtils.escapeFileName(fileName)));
+            assertDoesNotThrow(() -> createFile(FileUtils.removeIllegalCharactersFromFileName(fileName)));
         }
     }
 
