@@ -24,6 +24,15 @@ Dependency this library in Maven Project
   </dependency>
   ```
 
+  or 
+
+  ```xml
+  <dependency>
+    <groupId>com.github.tagnja</groupId>
+    <artifactId>java-commons</artifactId>
+    <version>{short_commit_hash_on_jitpack}</version>
+  </dependency>
+  ```
   
 
 <h3 id="content">Content</h3>
