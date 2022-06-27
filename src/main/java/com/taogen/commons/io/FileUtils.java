@@ -19,6 +19,8 @@ public class FileUtils {
 
     private static final DateFormat YYYY_MM_SS_HH_MM_SS = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 
+    private static final DateFormat YYYY_MM_SS_HH_MM_SS_SSS = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS");
+
     /**
      * For example: text.txt -> text_2022-06-23_16-01-01.txt, text -> text_2022-06-23_16-01-01
      *
@@ -31,14 +33,14 @@ public class FileUtils {
             return new StringBuilder()
                     .append(fileName, 0, index)
                     .append("_")
-                    .append(YYYY_MM_SS_HH_MM_SS.format(new Date()))
+                    .append(YYYY_MM_SS_HH_MM_SS_SSS.format(new Date()))
                     .append(fileName.substring(index))
                     .toString();
         } else {
             return new StringBuilder()
                     .append(fileName)
                     .append("_")
-                    .append(YYYY_MM_SS_HH_MM_SS.format(new Date()))
+                    .append(YYYY_MM_SS_HH_MM_SS_SSS.format(new Date()))
                     .toString();
         }
     }
