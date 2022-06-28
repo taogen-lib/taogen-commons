@@ -93,7 +93,12 @@ public class StringUtils
 
     public static boolean isEmpty(String str)
     {
-        return (str == null || str.length() == 0) ? true : false;
+        return str == null || str.length() == 0;
+    }
+
+    public static boolean isNotEmpty(String str)
+    {
+        return str != null && str.length() > 0;
     }
 
     public static boolean isEmail(String str)
@@ -158,6 +163,11 @@ public class StringUtils
     }
 
     public static String toNotNull(String str)
+    {
+        return str == null ? "" : str;
+    }
+
+    public static String nullToEmpty(String str)
     {
         return str == null ? "" : str;
     }
