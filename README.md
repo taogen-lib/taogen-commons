@@ -1,9 +1,9 @@
-# java-commons
-My library of utility.
+# taogen-commons
+Java common utility library.
 
 Dependency this library in Maven Project
 
-- Add the JitPack repository to your build file
+- Add the [JitPack](https://jitpack.io/#taogen-lib/taogen-commons) repository to your build file
 
   ```xml
   <repositories>
@@ -18,8 +18,8 @@ Dependency this library in Maven Project
 
   ```xml
   <dependency>
-      <groupId>com.github.tagnja</groupId>
-      <artifactId>java-commons</artifactId>
+      <groupId>com.github.taogen-lib</groupId>
+      <artifactId>taogen-commons</artifactId>
       <version>Tag</version>
   </dependency>
   ```
@@ -28,9 +28,9 @@ Dependency this library in Maven Project
 
   ```xml
   <dependency>
-    <groupId>com.github.tagnja</groupId>
-    <artifactId>java-commons</artifactId>
-    <version>{short_commit_hash_on_jitpack}</version>
+      <groupId>com.github.taogen-lib</groupId>
+      <artifactId>taogen-commons</artifactId>
+      <version>{short_commit_hash_on_jitpack}</version>
   </dependency>
   ```
   
