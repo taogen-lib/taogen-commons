@@ -1,5 +1,5 @@
-# taogen-commons
-Java common utility library.
+# Taogen Commons Java
+Java utility code library.
 
 Dependency this library in Maven Project
 
@@ -19,7 +19,7 @@ Dependency this library in Maven Project
   ```xml
   <dependency>
       <groupId>com.github.taogen-lib</groupId>
-      <artifactId>taogen-commons</artifactId>
+      <artifactId>commons-java</artifactId>
       <version>Tag</version>
   </dependency>
   ```
@@ -29,7 +29,7 @@ Dependency this library in Maven Project
   ```xml
   <dependency>
       <groupId>com.github.taogen-lib</groupId>
-      <artifactId>taogen-commons</artifactId>
+      <artifactId>commons-java</artifactId>
       <version>{short_commit_hash_on_jitpack}</version>
   </dependency>
   ```
