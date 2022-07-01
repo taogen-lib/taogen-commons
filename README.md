@@ -16,6 +16,8 @@ Dependency this library in Maven Project
 
 - Add the dependency
 
+  Using release tag
+
   ```xml
   <dependency>
       <groupId>com.github.taogen-lib</groupId>
@@ -24,7 +26,7 @@ Dependency this library in Maven Project
   </dependency>
   ```
 
-  or 
+  Or using a short commit hash on JitPack
 
   ```xml
   <dependency>
@@ -34,6 +36,15 @@ Dependency this library in Maven Project
   </dependency>
   ```
   
+  Or using the latest version (After you push a new commit. Other projects need to force checking update `mvn clean install -U` and reload maven project)
+
+  ```xml
+  <dependency>
+    <groupId>com.github.taogen-lib</groupId>
+    <artifactId>commons-java</artifactId>
+    <version>-SNAPSHOT</version>
+  </dependency>
+  ```
 
 <h3 id="content">Content</h3>
 
