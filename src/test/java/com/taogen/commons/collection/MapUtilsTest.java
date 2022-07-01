@@ -76,8 +76,8 @@ class MapUtilsTest {
         map2.clear();
         map2.put(key, new ArrayList<>(Arrays.asList(1, 2)));
         assertTrue(MapUtils.multiValueMapEquals(map1, map2));
-        // list size equal and list values equal -> true
-        key = "list size equal and list values equal -> true 222";
+        // list size equal and list values equal but type is different -> true
+        key = "list size equal and list values equal but type is different -> true";
         map1.clear();
         map1.put(key, new ArrayList<>(Arrays.asList(1, 2)));
         map2.clear();
@@ -90,6 +90,12 @@ class MapUtilsTest {
         map2.clear();
         map2.put(key, new ArrayList<>(Arrays.asList(2, 3)));
         assertFalse(MapUtils.multiValueMapEquals(map1, map2));
+        // list size equal and list values equal but order is different -> true
+        map1.clear();
+        map1.put(key, new ArrayList<>(Arrays.asList(1, 2, null, 3)));
+        map2.clear();
+        map2.put(key, new ArrayList<>(Arrays.asList(2, 1, null, 3)));
+        assertTrue(MapUtils.multiValueMapEquals(map1, map2));
     }
 
     @Test
