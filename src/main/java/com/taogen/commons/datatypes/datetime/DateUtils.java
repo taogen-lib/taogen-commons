@@ -7,19 +7,6 @@ import java.util.*;
 
 public class DateUtils
 {
-    public static final DateFormat FORMAT_YYYYMMMDD = new SimpleDateFormat("yyyyMMdd");
-    public static final DateFormat FORMAT_YYYY_MM_DD_1 = new SimpleDateFormat("yyyy-MM-dd");
-    public static final DateFormat FORMAT_YYYY_MM_DD_2 = new SimpleDateFormat("yyyy/MM/dd");
-
-    public static final DateFormat FORMAT_YYYYMM = new SimpleDateFormat("yyyyMM");
-    public static final DateFormat FORMAT_YYYYMM_1 = new SimpleDateFormat("yyyy-MM");
-    public static final DateFormat FORMAT_YYYYMM_2 = new SimpleDateFormat("yyyy/MM");
-
-    public static final DateFormat FORMAT_MMDD = new SimpleDateFormat("MMdd");
-    public static final DateFormat FORMAT_MMDD_1 = new SimpleDateFormat("MM-dd");
-    public static final DateFormat FORMAT_MMDD_2 = new SimpleDateFormat("MM/dd");
-
-    public static final DateFormat FORMAT_YYYY_MM_DD_HH_MM_SS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static final long DAY_MILLISECONDS = 24 * 60 * 60 * 1000;
 
