@@ -21,6 +21,8 @@ public class FileUtils {
 
     private static final DateFormat YYYY_MM_SS_HH_MM_SS_SSS = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS");
 
+    public static final List<String> BROWSER_PREVIEW_FILE_SUFFIXES = Arrays.asList(".pdf", ".png", ".jpg", ".jpeg", ".gif", ".txt");
+
     /**
      * For example: text.txt -> text_2022-06-23_16-01-01.txt, text -> text_2022-06-23_16-01-01
      *
@@ -97,6 +99,20 @@ public class FileUtils {
         return Paths.get(url.toURI()).toFile().getAbsolutePath();
     }
 
+    public static String getFileNameByFileUrl(String fileUrl) {
+        if (fileUrl == null) {
+            return null;
+        }
+        String fileName = null;
+        if (fileUrl.indexOf("/") > 0) {
+            fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+        }
+        if (fileName.indexOf("?") > 0) {
+            fileName = fileName.substring(0, fileName.indexOf("?"));
+        }
+        return fileName;
+    }
+
     public static String getTextFromFile(String textFilePath) {
         StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader reader = getBufferedReaderWithCharset(textFilePath, StandardCharsets.UTF_8)) {
@@ -156,5 +172,14 @@ public class FileUtils {
             }
         }
         return sb.toString();
+    }
+
+    public static boolean isPreviewFileOnBrowser(String fileName) {
+        for (String suffix : BROWSER_PREVIEW_FILE_SUFFIXES) {
+            if (fileName.toLowerCase().contains(suffix)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
