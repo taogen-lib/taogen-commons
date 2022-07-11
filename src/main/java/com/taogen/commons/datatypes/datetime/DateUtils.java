@@ -210,4 +210,46 @@ public class DateUtils
     }
 
     // >> assist
+
+    /**
+     * For example: 2022-07-11 00:00:00
+     *
+     * @param date
+     * @return
+     */
+    public static Date getStartOfTheDay(Date date) {
+        if (date == null) {
+            return null;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        clearCalendarTimeSection(calendar);
+        return calendar.getTime();
+    }
+
+    public static void clearCalendarTimeSection(Calendar calendar) {
+        if (calendar != null) {
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.clear(Calendar.MINUTE);
+            calendar.clear(Calendar.SECOND);
+            calendar.clear(Calendar.MILLISECOND);
+        }
+    }
+
+    /**
+     * For example: 2022-07-11 23:59:59
+     * @param date
+     * @return
+     */
+    public static Object getEndOfTheDay(Date date) {
+        if (date == null) {
+            return null;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        return calendar.getTime();
+    }
 }
