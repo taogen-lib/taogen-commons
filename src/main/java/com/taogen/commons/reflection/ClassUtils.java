@@ -110,10 +110,10 @@ public class ClassUtils {
         }
     }
 
-    public static Set<? extends Serializable> getFieldValuesFromList(List<?> list, String idFieldName) {
+    public static Set<? extends Serializable> getFieldValuesFromList(List<?> list, String fieldName) {
         Set<Serializable> fieldValues = new HashSet<>();
         for (Object obj : list) {
-            Object fieldValue = getFieldValueFromObject(obj, idFieldName);
+            Object fieldValue = getFieldValueFromObject(obj, fieldName);
             if (fieldValue != null) {
                 fieldValues.add((Serializable) fieldValue);
             }
@@ -121,14 +121,14 @@ public class ClassUtils {
         return fieldValues != null ? fieldValues : Collections.emptySet();
     }
 
-    public static void setFieldValuesForList(List<?> list, Map<String, String> idValueToFieldValue, String idField, String field) {
+    public static void setFieldValuesForList(List<?> list, Map<String, String> idValueToFieldValue, String idFieldName, String fieldName) {
         if (list == null) {
             return;
         }
         for (Object obj : list) {
-            Object id = getFieldValueFromObject(obj, idField);
+            Object id = getFieldValueFromObject(obj, idFieldName);
             if (id != null) {
-                ClassUtils.setFieldValueToObject(obj, field, idValueToFieldValue.get(String.valueOf(id)));
+                ClassUtils.setFieldValueToObject(obj, fieldName, idValueToFieldValue.get(String.valueOf(id)));
             }
         }
     }
