@@ -39,4 +39,13 @@ public class IOUtils {
         }
         return stringBuilder.toString();
     }
+
+    public static String removeNewLineCharacters(String source) {
+        if (source == null) {
+            return null;
+        }
+        return source.replace("\r\n", "")
+                .replace("\r", "")
+                .replace("\n", "");
+    }
 }

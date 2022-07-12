@@ -140,13 +140,4 @@ public class StringUtils {
         }
         return count;
     }
-
-    public static String removeNewLineCharacters(String source) {
-        if (source == null) {
-            return null;
-        }
-        return source.replace("\r\n", "")
-                .replace("\r", "")
-                .replace("\n", "");
-    }
 }
