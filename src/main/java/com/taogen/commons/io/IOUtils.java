@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author Taogen
  */
-public class IoStreamUtils {
+public class IOUtils {
     /**
      * The one-arguments constructors of FileReader always use the platform default encoding which is generally a bad idea.
      * Since Java 11 FileReader has also gained constructors that accept an encoding: new FileReader(file, charset) and new FileReader(fileName, charset).
@@ -26,7 +26,7 @@ public class IoStreamUtils {
 
     public static String getTextFromFile(String textFilePath) {
         StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader reader = IoStreamUtils.getBufferedReaderWithCharset(textFilePath, StandardCharsets.UTF_8)) {
+        try (BufferedReader reader = IOUtils.getBufferedReaderWithCharset(textFilePath, StandardCharsets.UTF_8)) {
             int len;
             char[] buf = new char[1024];
             while ((len = reader.read(buf)) != -1) {

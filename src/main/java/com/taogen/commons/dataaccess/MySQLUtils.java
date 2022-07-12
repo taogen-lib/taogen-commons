@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author Taogen
  */
-public class MysqlUtils {
+public class MySQLUtils {
     public static final String ON_DUPLICATE_KEY_UPDATE = " ON DUPLICATE KEY UPDATE ";
 
     public static final String DEFAULT_JAVA_TYPE = "String";
