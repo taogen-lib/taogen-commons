@@ -28,9 +28,9 @@ class FileUtilsTest {
     }
 
     @Test
-    void ensureFileExists() throws FileNotFoundException {
-        String tempDir = FileUtils.getTempDir();
-        assertDoesNotThrow(() -> FileUtils.ensureFileExists(tempDir));
+    void doesFileExist() throws FileNotFoundException {
+        String tempDir = DirectoryUtils.getTempDir();
+        assertTrue(FileUtils.doesFileExist(tempDir));
         String testFile = new StringBuilder()
                 .append(tempDir)
                 .append(File.separator)
@@ -38,7 +38,7 @@ class FileUtilsTest {
                 .append(System.currentTimeMillis())
                 .append(".txt")
                 .toString();
-        assertThrows(FileNotFoundException.class, () -> FileUtils.ensureFileExists(testFile));
+        assertFalse(FileUtils.doesFileExist(testFile));
     }
 
     @Test

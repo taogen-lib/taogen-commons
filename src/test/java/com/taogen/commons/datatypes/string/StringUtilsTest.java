@@ -47,19 +47,6 @@ public class StringUtilsTest {
         assertTrue(StringUtils.isEmpty(""));
     }
 
-    @Test
-    public void isEmailTest() {
-        assertFalse(StringUtils.isEmail(null));
-        assertFalse(StringUtils.isEmail("123abc.com"));
-        assertTrue(StringUtils.isEmail("hello@gmail.com"));
-    }
-
-    @Test
-    public void isMobileTest() {
-        assertFalse(StringUtils.isMobile(null));
-        assertFalse(StringUtils.isMobile("12345678901"));
-        assertTrue(StringUtils.isMobile("13812341234"));
-    }
 
     // >> string verification
 
@@ -68,12 +55,6 @@ public class StringUtilsTest {
 
 
     // string handle <<
-    @Test
-    public void encodeMobileTest() {
-        assertNull(StringUtils.encodeMobile(null));
-        assertEquals("189****1234", StringUtils.encodeMobile("18912341234"));
-    }
-
     @Test
     public void jointStringTest() {
         assertEquals("a", StringUtils.jointString("a", null));

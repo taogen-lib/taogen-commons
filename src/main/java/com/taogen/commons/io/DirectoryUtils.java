@@ -39,19 +39,37 @@ public class DirectoryUtils {
         }
     }
 
-    public static String getFileDirFromFilePath(String filepath) {
+    /**
+     * ensure directory of filepath exists
+     *
+     * @param filepath
+     */
+    public static void ensureFileDirExist(String filepath) {
+        File fileDir = new File(extractDirPathFromFilePath(filepath));
+        if (!fileDir.exists()) {
+            fileDir.mkdirs();
+        }
+    }
+
+    public static String extractDirPathFromFilePath(String filepath) {
         filepath = FileUtils.unifyFileSeparatorOfFilePath(filepath);
         return filepath.substring(0, filepath.lastIndexOf(File.separator));
     }
 
-    /**
-     * ensure directory of filepath exists
-     * @param filepath
-     */
-    public static void createDirOfFilePathIfNotExist(String filepath) {
-        File fileDir = new File(getFileDirFromFilePath(filepath));
-        if (!fileDir.exists()) {
-            fileDir.mkdirs();
+    public static String getDirPathByFile(File file) {
+        if (file == null || !file.exists() || !file.isFile()) {
+            return null;
         }
+        return file.getParentFile().getAbsolutePath();
+    }
+
+    /**
+     * Windows 10: C:\Users\{user}\AppData\Local\Temp\
+     * Debian: /tmp
+     *
+     * @return
+     */
+    public static String getTempDir() {
+        return System.getProperty("java.io.tmpdir");
     }
 }

@@ -2,11 +2,11 @@ package com.taogen.commons.io;
 
 import com.taogen.commons.datatypes.datetime.DateFormatters;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
@@ -42,43 +42,21 @@ public class FileUtils {
         }
     }
 
-    public static void ensureFileExists(String dirOrFilePath) throws FileNotFoundException {
+    public static boolean doesFileExist(String dirOrFilePath) throws FileNotFoundException {
         File file = new File(dirOrFilePath);
-        if (!file.exists()) {
-            throw new FileNotFoundException("Not found " + dirOrFilePath);
-        }
+        return file.exists();
     }
 
-    /**
-     * Windows 10: C:\Users\{user}\AppData\Local\Temp\
-     * Debian: /tmp
-     *
-     * @return
-     */
-    public static String getTempDir() {
-        return System.getProperty("java.io.tmpdir");
+    public static String extractFileNameFromFilePath(String filepath) {
+        filepath = FileUtils.unifyFileSeparatorOfFilePath(filepath);
+        return filepath.substring(filepath.lastIndexOf(File.separator));
     }
 
-    public static String getDirPathByFilePath(String filePath) {
-        if (filePath == null) {
+    public static String getFileNameByFile(File file) {
+        if (file == null || !file.exists() || !file.isFile()) {
             return null;
         }
-        File file = new File(filePath);
-        if (file.exists() && file.isFile()) {
-            return file.getParentFile().getAbsolutePath();
-        }
-        return null;
-    }
-
-    public static String getFileNameByFilePath(String filePath) {
-        if (filePath == null) {
-            return null;
-        }
-        File file = new File(filePath);
-        if (file.exists() && file.isFile()) {
-            return file.getName();
-        }
-        return null;
+        return file.getName();
     }
 
     /**
@@ -106,38 +84,6 @@ public class FileUtils {
             fileName = fileName.substring(0, fileName.indexOf("?"));
         }
         return fileName;
-    }
-
-    public static String getTextFromFile(String textFilePath) {
-        StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader reader = getBufferedReaderWithCharset(textFilePath, StandardCharsets.UTF_8)) {
-            int len;
-            char[] buf = new char[1024];
-            while ((len = reader.read(buf)) != -1) {
-                stringBuilder.append(buf, 0, len);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return stringBuilder.toString();
-    }
-
-    /**
-     * The one-arguments constructors of FileReader always use the platform default encoding which is generally a bad idea.
-     * Since Java 11 FileReader has also gained constructors that accept an encoding: new FileReader(file, charset) and new FileReader(fileName, charset).
-     * In earlier versions of java, you need to use new InputStreamReader(new FileInputStream(pathToFile), <encoding>).
-     *
-     * @param filePath
-     * @param charset
-     * @return
-     * @throws FileNotFoundException
-     */
-    public static BufferedReader getBufferedReaderWithCharset(String filePath,
-                                                              Charset charset) throws FileNotFoundException {
-        return new BufferedReader(new InputStreamReader(
-                new FileInputStream(filePath), charset));
     }
 
     public static String getFileExtension(String fileName) {
