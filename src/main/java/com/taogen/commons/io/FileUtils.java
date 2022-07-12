@@ -1,13 +1,13 @@
 package com.taogen.commons.io;
 
+import com.taogen.commons.datatypes.datetime.DateFormatters;
+
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -16,11 +16,6 @@ import java.util.List;
  * @author Taogen
  */
 public class FileUtils {
-
-    private static final DateFormat YYYY_MM_SS_HH_MM_SS = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-
-    private static final DateFormat YYYY_MM_SS_HH_MM_SS_SSS = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS");
-
     public static final List<String> BROWSER_PREVIEW_FILE_SUFFIXES = Arrays.asList(".pdf", ".png", ".jpg", ".jpeg", ".gif", ".txt");
 
     /**
@@ -35,14 +30,14 @@ public class FileUtils {
             return new StringBuilder()
                     .append(fileName, 0, index)
                     .append("_")
-                    .append(YYYY_MM_SS_HH_MM_SS_SSS.format(new Date()))
+                    .append(DateFormatters.yyyy_MM_dd_HH_mm_ss_SSS_2.format(new Date()))
                     .append(fileName.substring(index))
                     .toString();
         } else {
             return new StringBuilder()
                     .append(fileName)
                     .append("_")
-                    .append(YYYY_MM_SS_HH_MM_SS_SSS.format(new Date()))
+                    .append(DateFormatters.yyyy_MM_dd_HH_mm_ss_SSS_2.format(new Date()))
                     .toString();
         }
     }
@@ -181,5 +176,9 @@ public class FileUtils {
             }
         }
         return false;
+    }
+
+    public static String unifyFileSeparatorOfFilePath(String filepath) {
+        return filepath.replace("\\", File.separator).replace("/", File.separator);
     }
 }
