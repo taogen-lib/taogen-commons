@@ -60,12 +60,19 @@ public class MySQLUtils {
         DB_TYPE_JDBC_TYPE_MAP.put("enum", "VARCHAR");
     }
 
-    public static String escapeCharacters(String str) {
-        if (str == null) {
+    /**
+     * Escape special chracters in the column value.
+     * ' => \'
+     * " => \"
+     * @param columnValue
+     * @return
+     */
+    public static String escapeSpecialCharsForColumnValue(String columnValue) {
+        if (columnValue == null) {
             return null;
         }
-        str = str.replace("\'", "\\\'").replace("\"", "\\\"");
-        return str;
+        columnValue = columnValue.replace("\'", "\\\'").replace("\"", "\\\"");
+        return columnValue;
     }
 
     public static String dbTypeToJavaType(String columnDataType) {
