@@ -14,7 +14,7 @@ public class ClassUtilsTest {
 
     @Test
     void getAllFieldsOfClassAndItsParent() {
-        List<Field> fields = ClassUtils.getAllFieldsOfClassAndItsParent(Child.class);
+        List<Field> fields = ClassFieldUtils.getAllFieldsOfClassAndItsParent(Child.class);
         assertNotNull(fields);
         Set<String> fieldNames = fields.stream()
                 .map(item -> item.getName())
@@ -25,7 +25,7 @@ public class ClassUtilsTest {
 
     @Test
     void getAllMethodsOfClassAndItsParent() {
-        List<Method> methods = ClassUtils.getAllMethodsOfClassAndItsParent(Child.class);
+        List<Method> methods = ClassMethodUtils.getAllMethodsOfClassAndItsParent(Child.class);
         assertNotNull(methods);
         Set<String> methodNames = methods.stream()
                 .map(item -> item.getName())

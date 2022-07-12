@@ -1,39 +1,31 @@
 package com.taogen.commons.reflection;
 
 import com.taogen.commons.datatypes.string.StringCaseUtils;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.util.*;
 
 /**
  * @author Taogen
  */
+@Log4j2
 public class ClassUtils {
     public ClassUtils() {
         throw new IllegalStateException("Can't instantiate the utility class");
     }
 
-    public static List<Field> getAllFieldsOfClassAndItsParent(Class cls) {
-        List<Field> fields = new ArrayList<>();
-        Class node = cls;
-        while (!Object.class.equals(node)) {
-            fields.addAll(Arrays.asList(node.getDeclaredFields()));
-            node = node.getSuperclass();
+    public static Class getGenericTypeOfCollectionField(Field listField) {
+        Class genericType = null;
+        if (Collection.class.isAssignableFrom(listField.getType()) &&
+                listField.getGenericType() instanceof ParameterizedType) {
+            ParameterizedType pType = (ParameterizedType) listField.getGenericType();
+            Type[] types = pType.getActualTypeArguments();
+            genericType = (Class<?>) types[0];
+            log.debug("list field {} generic type is {}", listField.getName(), genericType.getSimpleName());
         }
-        return fields;
-    }
-
-    public static List<Method> getAllMethodsOfClassAndItsParent(Class cls) {
-        List<Method> methods = new ArrayList<>();
-        Class node = cls;
-        while (!Object.class.equals(node)) {
-            methods.addAll(Arrays.asList(node.getDeclaredMethods()));
-            node = node.getSuperclass();
-        }
-        return methods;
+        return genericType;
     }
 
     /**
