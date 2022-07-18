@@ -46,6 +46,14 @@ Dependency this library in Maven Project
   </dependency>
   ```
 
+## Method return null or throw an exception
+
+If you are always expecting to find a value then throw the exception if it is missing. The exception would mean that there was a problem.
+
+If the value can be missing or present and both are valid for the application logic then return a null.
+
+More important: What do you do other places in the code? Consistency is important.
+
 <h3 id="content">Content</h3>
 
 - Java util class basic
