@@ -10,6 +10,12 @@ import java.util.stream.Collectors;
  */
 @Log4j2
 public class MapUtils {
+    /**
+     * convert multiStringValueMap to multiObjectValueMap
+     *
+     * @param multiStringValueMap
+     * @return
+     */
     public static Map<String, List<Object>> multiStringValueMapToMultiObjectValueMap(Map<String, List<String>> multiStringValueMap) {
         if (multiStringValueMap == null) {
             return null;
@@ -25,6 +31,12 @@ public class MapUtils {
         return multiObjectValueMap;
     }
 
+    /**
+     * convert multiObjectValueMap to multiStringValueMap
+     *
+     * @param multiObjectValueMap
+     * @return
+     */
     public static Map<String, List<String>> multiObjectValueMapToMultiStringValueMap(Map<String, List<Object>> multiObjectValueMap) {
         if (multiObjectValueMap == null) {
             return null;
@@ -42,6 +54,16 @@ public class MapUtils {
         return multiStringValueMap;
     }
 
+    /**
+     * check if two multi value map equals
+     * <p>
+     * - sort list values.
+     * - compare each value of list by toString()
+     *
+     * @param a
+     * @param b
+     * @return
+     */
     public static boolean multiValueMapEquals(Map<String, List<Object>> a, Map<String, List<Object>> b) {
         if (a == null) {
             a = Collections.emptyMap();
@@ -91,10 +113,86 @@ public class MapUtils {
         return true;
     }
 
+    /**
+     * check if two multi value map equals
+     *
+     * @param a
+     * @param b
+     * @return
+     */
     public static boolean multiStringValueMapEquals(Map<String, List<String>> a, Map<String, List<String>> b) {
         Map<String, List<Object>> aMultiObjectValueMap = multiStringValueMapToMultiObjectValueMap(a);
         Map<String, List<Object>> bMultiObjectValueMap = multiStringValueMapToMultiObjectValueMap(b);
         return multiValueMapEquals(aMultiObjectValueMap, bMultiObjectValueMap);
     }
 
+    /**
+     * check if a contains b
+     * <p>
+     * - filter null value in list
+     * - compare each value of list by toString()
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public static boolean multiValueMapContains(Map<String, List<Object>> a, Map<String, List<Object>> b) {
+        if (a == null) {
+            a = Collections.emptyMap();
+        }
+        if (b == null) {
+            b = Collections.emptyMap();
+        }
+        if (a.isEmpty() && b.isEmpty()) {
+            return true;
+        }
+        if (a.size() < b.size()) {
+            return false;
+        }
+        Set<String> keys = b.keySet();
+        for (String key : keys) {
+            log.debug("key is {}", key);
+            List<?> aValues = a.get(key);
+            if (aValues == null) {
+                aValues = Collections.emptyList();
+            }
+            List<?> bValues = b.get(key);
+            if (bValues == null) {
+                bValues = Collections.emptyList();
+            }
+            if (aValues.isEmpty() && bValues.isEmpty()) {
+                continue;
+            }
+            if (aValues.size() < bValues.size()) {
+                return false;
+            }
+            Set<String> aSet = aValues.stream()
+                    .filter(Objects::nonNull)
+                    .map(Object::toString)
+                    .collect(Collectors.toSet());
+            List<String> bValuesString = bValues.stream()
+                    .filter(Objects::nonNull)
+                    .map(Object::toString)
+                    .collect(Collectors.toList());
+            for (String bValue : bValuesString) {
+                if (!aSet.contains(bValue)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * check if a contains b
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public static boolean multiStringValueMapContains(Map<String, List<String>> a, Map<String, List<String>> b) {
+        Map<String, List<Object>> aMultiObjectValueMap = multiStringValueMapToMultiObjectValueMap(a);
+        Map<String, List<Object>> bMultiObjectValueMap = multiStringValueMapToMultiObjectValueMap(b);
+        return multiValueMapContains(aMultiObjectValueMap, bMultiObjectValueMap);
+    }
 }
