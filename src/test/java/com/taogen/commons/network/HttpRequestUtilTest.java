@@ -150,11 +150,11 @@ class HttpRequestUtilTest {
         String s = "--boundary\n" +
                 "Content-Disposition: form-data; name=\"key1\"\n" +
                 "Content-Length: 1\n" +
-                "\r\n" +
+                "\n" +
                 "1\n" +
                 "--boundary\n" +
                 "Content-Disposition: form-data; name=\"key1\"\n" +
-                "\r" +
+                "\n" +
                 "2\n" +
                 "--boundary\n" +
                 "Content-Disposition: form-data; name=\"key1\"\n" +
@@ -182,22 +182,22 @@ class HttpRequestUtilTest {
 
     @Test
     void multipartDataToMultiValueMap_2() throws IOException {
-        String s = "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0\n" +
-                "Content-Disposition: form-data; name=\"name\"\n" +
-                "Content-Length: 4\n" +
-                "\n" +
-                "test\n" +
-                "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0\n" +
-                "Content-Disposition: form-data; name=\"name\"\n" +
-                "Content-Length: 5\n" +
-                "\n" +
-                "test2\n" +
-                "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0\n" +
-                "Content-Disposition: form-data; name=\"id\"\n" +
-                "Content-Length: 1\n" +
-                "\n" +
-                "1\n" +
-                "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0--\n";
+        String s = "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0\r\n" +
+                "Content-Disposition: form-data; name=\"name\"\r\n" +
+                "Content-Length: 4\r\n" +
+                "\r\n" +
+                "test\r\n" +
+                "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0\r\n" +
+                "Content-Disposition: form-data; name=\"name\"\r\n" +
+                "Content-Length: 5\r\n" +
+                "\r\n" +
+                "test2\r\n" +
+                "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0\r\n" +
+                "Content-Disposition: form-data; name=\"id\"\r\n" +
+                "Content-Length: 1\r\n" +
+                "\r\n" +
+                "1\r\n" +
+                "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0--\r\n";
         String boundary = "a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0";
         Map<String, List<Object>> map2 = HttpRequestUtil.multipartDataToMultiValueMap(s.getBytes(StandardCharsets.UTF_8), boundary);
         log.debug("map2: {}", map2);
