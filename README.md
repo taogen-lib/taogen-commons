@@ -3,7 +3,7 @@ Java utility code library.
 
 Dependency this library in Maven Project
 
-- Add the [JitPack](https://jitpack.io/#taogen-lib/taogen-commons) repository to your build file
+- Add the [JitPack](https://jitpack.io/#taogen-lib/commons-java) repository to your build file
 
   ```xml
   <repositories>
