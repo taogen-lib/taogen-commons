@@ -189,6 +189,9 @@ public class HttpRequestUtil {
         if (multipartData == null || multipartData.length == 0) {
             return new LinkedHashMap<>();
         }
+        if (!boundary.startsWith("--")) {
+            boundary = "--" + boundary;
+        }
         String multipartDataString = new String(multipartData, StandardCharsets.UTF_8);
         String[] split = multipartDataString.split(boundary);
         LinkedHashMap<String, List<Object>> multiValueMap = new LinkedHashMap<>();
