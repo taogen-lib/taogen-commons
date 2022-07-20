@@ -26,7 +26,7 @@ public class HttpRequestUtil {
             "(--\\w+--)((?!\\1).)*", Pattern.DOTALL);
 
     public static final Pattern MULTIPART_FIELD_VALUE_PATTERN = Pattern.compile(
-            "; name=\"(\\w+)\".*?(\\n|\\r|\\r\\n)(Content-Type:\\[\\w/\\]+)?(\\n|\\r|\\r\\n)(.+)", Pattern.DOTALL);
+            "; name=\"(\\w+)\".*?(\\n|\\r|\\r\\n)(Content-\\w+:\\[\\w/\\]+)*(\\n|\\r|\\r\\n)(.+)", Pattern.DOTALL);
 
     public static final Pattern MULTIPART_BOUNDARY_PATTERN = Pattern.compile(
             "boundary=(.+)");

@@ -147,28 +147,36 @@ class HttpRequestUtilTest {
 
     @Test
     void multipartDataToMultiValueMap() throws IOException {
-        String s = "--boundary--\n" +
+        String s = "--boundary\n" +
                 "Content-Disposition: form-data; name=\"key1\"\n" +
+                "Content-Length: 1\n" +
                 "\r\n" +
                 "1\n" +
-                "--boundary--\n" +
+                "--boundary\n" +
                 "Content-Disposition: form-data; name=\"key1\"\n" +
                 "\r" +
                 "2\n" +
-                "--boundary--\n" +
+                "--boundary\n" +
                 "Content-Disposition: form-data; name=\"key1\"\n" +
                 "\n" +
                 "3\n" +
-                "--boundary--\n" +
+                "--boundary\n" +
                 "Content-Disposition: form-data; name=\"key2\"\n" +
                 "\n" +
                 "abc\n" +
+                "--boundary\n" +
+                "Content-Disposition: form-data; name=\"file\"; filename=\"a.txt\"\n" +
+                "Content-Type: text/plain\n" +
+                "\n" +
+                "Content of a.txt." +
                 "--boundary--\n";
         String boundary = "--boundary";
         Map<String, List<Object>> map = HttpRequestUtil.multipartDataToMultiValueMap(s.getBytes(StandardCharsets.UTF_8), boundary);
+        log.debug("map: {}", map);
         Map<String, List<Object>> expectMap = new LinkedHashMap<>();
         expectMap.put("key1", Arrays.asList(1, 2, 3));
         expectMap.put("key2", Arrays.asList("abc"));
+        expectMap.put("file", Arrays.asList("Content of a.txt."));
         assertTrue(MapUtils.multiValueMapEquals(expectMap, map));
     }
 
