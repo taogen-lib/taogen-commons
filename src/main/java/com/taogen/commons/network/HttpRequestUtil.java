@@ -1,5 +1,6 @@
 package com.taogen.commons.network;
 
+import com.taogen.commons.io.IOUtils;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
@@ -21,6 +22,11 @@ import java.util.stream.Collectors;
 @Log4j2
 public class HttpRequestUtil {
 
+    public static final Pattern MULTIPART_SPLIT_PATTERN = Pattern.compile(
+            "(--\\w+--)((?!\\1).)*", Pattern.DOTALL);
+
+    public static final Pattern MULTIPART_FIELD_VALUE_PATTERN = Pattern.compile(
+            "; name=\"(\\w+)\".*?(\\n|\\r|\\r\\n)(Content-Type:\\[\\w/\\]+)?(\\n|\\r|\\r\\n)(.+)", Pattern.DOTALL);
     public static final Pattern QUERY_STRING_FIELD_VALUE_PATTERN =
             Pattern.compile("([^?&].*?)=([^&]*)", Pattern.CASE_INSENSITIVE);
 
@@ -30,7 +36,7 @@ public class HttpRequestUtil {
      * @param params
      * @return key1=value1&key2=value2&key3=value3
      */
-    public static String multiValueMapToQueryString(Map<String, List<Object>> params) {
+    public static String multiValueMapToQueryString(LinkedHashMap<String, List<Object>> params) {
         if (params == null || params.isEmpty()) {
             return "";
         }
@@ -77,12 +83,13 @@ public class HttpRequestUtil {
      * - In a small case such as this, it won't matter that much. However, if you have extremely large strings, it may be beneficial to use Pattern/Matcher directly.
      * - Most string functions that use regular expressions (such as matches(), split(), replaceAll(), etc.) makes use of Matcher/Pattern directly. Thus it will create a Matcher object every time, causing inefficiency when used in a large loop.
      * - Thus if you really want speed, you can use Matcher/Pattern directly and ideally only create a single Matcher object.
+     * Reference https://stackoverflow.com/questions/24813430/java-parsing-strings-string-split-versus-pattern-matcher
      *
      * @param queryString key1=value1&key2=value2&key3=value3
      * @return
      */
-    public static Map<String, List<Object>> queryStringToMultiValueMap(String queryString) {
-        Map<String, List<Object>> multiValueMap = new LinkedHashMap<>();
+    public static LinkedHashMap<String, List<Object>> queryStringToMultiValueMap(String queryString) {
+        LinkedHashMap<String, List<Object>> multiValueMap = new LinkedHashMap<>();
         if (queryString == null || queryString.trim().isEmpty()) {
             return multiValueMap;
         }
@@ -101,7 +108,7 @@ public class HttpRequestUtil {
         return multiValueMap;
     }
 
-    public static byte[] multiValueMapToMultipartData(Map<String, List<Object>> data,
+    public static byte[] multiValueMapToMultipartData(LinkedHashMap<String, List<Object>> data,
                                                       String boundary) throws IOException {
         if (data == null || data.isEmpty()) {
             return new byte[0];
@@ -172,10 +179,31 @@ public class HttpRequestUtil {
         return buff.array();
     }
 
-    public static Map<String, List<Object>> multipartDataToMultiValueMap(byte[] multipartData) {
-        Map<String, List<Object>> multiValueMap = new HashMap<>();
-        // TODO
 
+    public static LinkedHashMap<String, List<Object>> multipartDataToMultiValueMap(
+            byte[] multipartData, String boundary) {
+        if (multipartData == null || multipartData.length == 0) {
+            return new LinkedHashMap<>();
+        }
+        String multipartDataString = new String(multipartData, StandardCharsets.UTF_8);
+        String[] split = multipartDataString.split(boundary);
+        LinkedHashMap<String, List<Object>> multiValueMap = new LinkedHashMap<>();
+        Arrays.stream(split).forEach(item -> {
+            Matcher matcher = MULTIPART_FIELD_VALUE_PATTERN.matcher(item);
+            int i = 0;
+            while (matcher.find()) {
+                log.debug("match item {} \n{}", ++i, matcher.group());
+                String field = matcher.group(1);
+                log.debug("field {}", field);
+                String value = matcher.group(5);
+                log.debug("value {}", value);
+                if (multiValueMap.get(field) == null) {
+                    multiValueMap.put(field, new ArrayList<>());
+                }
+                multiValueMap.get(field).add(IOUtils.removeNewLineCharacters(value));
+            }
+        });
         return multiValueMap;
     }
+
 }

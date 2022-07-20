@@ -4,6 +4,8 @@ import com.taogen.commons.collection.MapUtils;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +16,7 @@ class HttpRequestUtilTest {
     @Test
     void multiValueMapToQueryString() {
         String queryString;
-        Map<String, List<Object>> map = new LinkedHashMap<>();
+        LinkedHashMap<String, List<Object>> map = new LinkedHashMap<>();
         // map is null
         queryString = HttpRequestUtil.multiValueMapToQueryString(null);
         log.debug("queryString: {}", queryString);
@@ -140,10 +142,33 @@ class HttpRequestUtilTest {
     }
 
     @Test
-    void multiValueMapToMultipartData() {
+    void multiValueMapToMultipartData() throws IOException {
     }
 
     @Test
-    void multipartDataToMultiValueMap() {
+    void multipartDataToMultiValueMap() throws IOException {
+        String s = "--boundary--\n" +
+                "Content-Disposition: form-data; name=\"key1\"\n" +
+                "\r\n" +
+                "1\n" +
+                "--boundary--\n" +
+                "Content-Disposition: form-data; name=\"key1\"\n" +
+                "\r" +
+                "2\n" +
+                "--boundary--\n" +
+                "Content-Disposition: form-data; name=\"key1\"\n" +
+                "\n" +
+                "3\n" +
+                "--boundary--\n" +
+                "Content-Disposition: form-data; name=\"key2\"\n" +
+                "\n" +
+                "abc\n" +
+                "--boundary--\n";
+        String boundary = "--boundary";
+        Map<String, List<Object>> map = HttpRequestUtil.multipartDataToMultiValueMap(s.getBytes(StandardCharsets.UTF_8), boundary);
+        Map<String, List<Object>> expectMap = new LinkedHashMap<>();
+        expectMap.put("key1", Arrays.asList(1, 2, 3));
+        expectMap.put("key2", Arrays.asList("abc"));
+        assertTrue(MapUtils.multiValueMapEquals(expectMap, map));
     }
 }

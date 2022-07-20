@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
  * @author Taogen
  */
 public class IOUtils {
+    public static final char[] NEWLINE_CHARACTERS = {'\r', '\n'};
+
     /**
      * The one-arguments constructors of FileReader always use the platform default encoding which is generally a bad idea.
      * Since Java 11 FileReader has also gained constructors that accept an encoding: new FileReader(file, charset) and new FileReader(fileName, charset).
@@ -47,5 +49,26 @@ public class IOUtils {
         return source.replace("\r\n", "")
                 .replace("\r", "")
                 .replace("\n", "");
+    }
+
+    public static boolean isNewlineChar(char c) {
+        for (int i = 0; i < NEWLINE_CHARACTERS.length; i++) {
+            if (c == NEWLINE_CHARACTERS[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static int skipToEndOfLine(byte[] bytes, int i) {
+        while (i < bytes.length) {
+            if (IOUtils.isNewlineChar((char) bytes[i])) {
+                if (i + 1 < bytes.length && !IOUtils.isNewlineChar((char) bytes[i + 1])) {
+                    return i;
+                }
+            }
+            i++;
+        }
+        return i;
     }
 }
