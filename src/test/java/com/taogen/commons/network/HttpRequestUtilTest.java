@@ -171,4 +171,11 @@ class HttpRequestUtilTest {
         expectMap.put("key2", Arrays.asList("abc"));
         assertTrue(MapUtils.multiValueMapEquals(expectMap, map));
     }
+
+    @Test
+    void getBoundaryByContentType() {
+        String boundary = "50cd708f-7757-4c88-8852-9729d5450dc2";
+        String contentType = "multipart/form-data; boundary=" + boundary;
+        assertEquals(boundary, HttpRequestUtil.getBoundaryByContentType(contentType));
+    }
 }

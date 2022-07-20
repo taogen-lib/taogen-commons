@@ -27,6 +27,10 @@ public class HttpRequestUtil {
 
     public static final Pattern MULTIPART_FIELD_VALUE_PATTERN = Pattern.compile(
             "; name=\"(\\w+)\".*?(\\n|\\r|\\r\\n)(Content-Type:\\[\\w/\\]+)?(\\n|\\r|\\r\\n)(.+)", Pattern.DOTALL);
+
+    public static final Pattern MULTIPART_BOUNDARY_PATTERN = Pattern.compile(
+            "boundary=(.+)");
+
     public static final Pattern QUERY_STRING_FIELD_VALUE_PATTERN =
             Pattern.compile("([^?&].*?)=([^&]*)", Pattern.CASE_INSENSITIVE);
 
@@ -206,4 +210,12 @@ public class HttpRequestUtil {
         return multiValueMap;
     }
 
+    public static String getBoundaryByContentType(String contentType) {
+        Matcher matcher = MULTIPART_BOUNDARY_PATTERN.matcher(contentType);
+        if (matcher.find()) {
+            return matcher.group(1);
+        } else {
+            return null;
+        }
+    }
 }
