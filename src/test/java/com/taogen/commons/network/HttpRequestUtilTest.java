@@ -181,6 +181,33 @@ class HttpRequestUtilTest {
     }
 
     @Test
+    void multipartDataToMultiValueMap_2() throws IOException {
+        String s = "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0\n" +
+                "Content-Disposition: form-data; name=\"name\"\n" +
+                "Content-Length: 4\n" +
+                "\n" +
+                "test\n" +
+                "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0\n" +
+                "Content-Disposition: form-data; name=\"name\"\n" +
+                "Content-Length: 5\n" +
+                "\n" +
+                "test2\n" +
+                "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0\n" +
+                "Content-Disposition: form-data; name=\"id\"\n" +
+                "Content-Length: 1\n" +
+                "\n" +
+                "1\n" +
+                "--a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0--\n";
+        String boundary = "a7fcff8f-4651-4ff7-afd1-29ed4fad0bd0";
+        Map<String, List<Object>> map2 = HttpRequestUtil.multipartDataToMultiValueMap(s.getBytes(StandardCharsets.UTF_8), boundary);
+        log.debug("map2: {}", map2);
+        Map<String, List<Object>> expectMap2 = new LinkedHashMap<>();
+        expectMap2.put("name", Arrays.asList("test", "test2"));
+        expectMap2.put("id", Arrays.asList(1));
+        assertTrue(MapUtils.multiValueMapEquals(expectMap2, map2));
+    }
+
+    @Test
     void getBoundaryByContentType() {
         String boundary = "50cd708f-7757-4c88-8852-9729d5450dc2";
         String contentType = "multipart/form-data; boundary=" + boundary;

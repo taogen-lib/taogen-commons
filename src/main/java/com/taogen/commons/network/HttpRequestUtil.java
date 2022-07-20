@@ -26,7 +26,7 @@ public class HttpRequestUtil {
             "(--\\w+--)((?!\\1).)*", Pattern.DOTALL);
 
     public static final Pattern MULTIPART_FIELD_VALUE_PATTERN = Pattern.compile(
-            "; name=\"(\\w+)\".*?(\\n|\\r|\\r\\n)(Content-\\w+:\\[\\w/\\]+)*(\\n|\\r|\\r\\n)(.+)", Pattern.DOTALL);
+            "; name=\"(\\w+)\".*?(\\n|\\r|\\r\\n){2}(.+)", Pattern.DOTALL);
 
     public static final Pattern MULTIPART_BOUNDARY_PATTERN = Pattern.compile(
             "boundary=(.+)");
@@ -202,7 +202,7 @@ public class HttpRequestUtil {
                 log.debug("match item {} \n{}", ++i, matcher.group());
                 String field = matcher.group(1);
                 log.debug("field {}", field);
-                String value = matcher.group(5);
+                String value = matcher.group(3);
                 log.debug("value {}", value);
                 if (multiValueMap.get(field) == null) {
                     multiValueMap.put(field, new ArrayList<>());
