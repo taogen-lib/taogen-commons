@@ -1,10 +1,16 @@
 package com.taogen.commons.collection;
 
+import java.util.Collection;
+
 /**
  * @author Taogen
  */
 public class CollectionUtils {
-    public static void test() {
+    public static boolean isEmpty(Collection collection) {
+        return collection == null || collection.isEmpty();
+    }
 
+    public static boolean isNotEmpty(Collection collection) {
+        return collection != null && !collection.isEmpty();
     }
 }

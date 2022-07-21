@@ -10,6 +10,14 @@ import java.util.stream.Collectors;
  */
 @Log4j2
 public class MapUtils {
+    public static boolean isEmpty(Map<String, Object> map) {
+        return map == null || map.isEmpty();
+    }
+
+    public static boolean isNotEmpty(Map<String, Object> map) {
+        return map != null && !map.isEmpty();
+    }
+
     /**
      * convert multiStringValueMap to multiObjectValueMap
      *
