@@ -15,27 +15,51 @@ public class IOUtils {
      * Since Java 11 FileReader has also gained constructors that accept an encoding: new FileReader(file, charset) and new FileReader(fileName, charset).
      * In earlier versions of java, you need to use new InputStreamReader(new FileInputStream(pathToFile), <encoding>).
      *
-     * @param filePath
+     * @param file
      * @param charset
      * @return
      * @throws FileNotFoundException
      */
-    public static BufferedReader getBufferedReaderWithCharset(String filePath,
+    public static BufferedReader getBufferedReaderWithCharset(File file,
                                                               Charset charset) throws FileNotFoundException {
         return new BufferedReader(new InputStreamReader(
-                new FileInputStream(filePath), charset));
+                new FileInputStream(file), charset));
     }
 
-    public static String getTextFromFile(String textFilePath) {
+    public static BufferedReader getBufferedReaderWithCharset(InputStream inputStream,
+                                                              Charset charset) {
+        return new BufferedReader(new InputStreamReader(inputStream, charset));
+    }
+
+    /**
+     * Note: the method caller is responsible for closing the inputStream
+     *
+     * @param inputStream
+     * @return
+     */
+    public static String getTextFromInputStream(InputStream inputStream) {
         StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader reader = IOUtils.getBufferedReaderWithCharset(textFilePath, StandardCharsets.UTF_8)) {
+        try {
+            BufferedReader reader = IOUtils.getBufferedReaderWithCharset(inputStream, StandardCharsets.UTF_8);
             int len;
             char[] buf = new char[1024];
             while ((len = reader.read(buf)) != -1) {
                 stringBuilder.append(buf, 0, len);
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String getTextFromFile(File file) {
+        StringBuilder stringBuilder = new StringBuilder();
+        try (BufferedReader reader = IOUtils.getBufferedReaderWithCharset(file, StandardCharsets.UTF_8)) {
+            int len;
+            char[] buf = new char[1024];
+            while ((len = reader.read(buf)) != -1) {
+                stringBuilder.append(buf, 0, len);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
