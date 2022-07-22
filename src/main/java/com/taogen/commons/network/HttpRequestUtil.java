@@ -40,7 +40,7 @@ public class HttpRequestUtil {
      * @param params
      * @return key1=value1&key2=value2&key3=value3
      */
-    public static String multiValueMapToQueryString(LinkedHashMap<String, List<Object>> params) {
+    public static String multiValueMapToQueryString(Map<String, List<Object>> params) {
         if (params == null || params.isEmpty()) {
             return "";
         }
@@ -92,7 +92,7 @@ public class HttpRequestUtil {
      * @param queryString key1=value1&key2=value2&key3=value3
      * @return
      */
-    public static LinkedHashMap<String, List<Object>> queryStringToMultiValueMap(String queryString) {
+    public static Map<String, List<Object>> queryStringToMultiValueMap(String queryString) {
         LinkedHashMap<String, List<Object>> multiValueMap = new LinkedHashMap<>();
         if (queryString == null || queryString.trim().isEmpty()) {
             return multiValueMap;
@@ -112,7 +112,7 @@ public class HttpRequestUtil {
         return multiValueMap;
     }
 
-    public static byte[] multiValueMapToMultipartData(LinkedHashMap<String, List<Object>> data,
+    public static byte[] multiValueMapToMultipartData(Map<String, List<Object>> data,
                                                       String boundary) throws IOException {
         if (data == null || data.isEmpty()) {
             return new byte[0];
@@ -184,7 +184,7 @@ public class HttpRequestUtil {
     }
 
 
-    public static LinkedHashMap<String, List<Object>> multipartDataToMultiValueMap(
+    public static Map<String, List<Object>> multipartDataToMultiValueMap(
             byte[] multipartData, String boundary) {
         if (multipartData == null || multipartData.length == 0) {
             return new LinkedHashMap<>();
