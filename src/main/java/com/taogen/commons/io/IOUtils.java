@@ -3,6 +3,7 @@ package com.taogen.commons.io;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 /**
  * @author Taogen
@@ -64,6 +65,29 @@ public class IOUtils {
             e.printStackTrace();
         }
         return stringBuilder.toString();
+    }
+
+    public static byte[] convertInputStreamToBytes(InputStream inputStream) {
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = inputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, len);
+            }
+            return byteArrayOutputStream.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static byte[] convertFileToBytes(File file) {
+        try {
+            return Files.readAllBytes(file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static String removeNewLineCharacters(String source) {
