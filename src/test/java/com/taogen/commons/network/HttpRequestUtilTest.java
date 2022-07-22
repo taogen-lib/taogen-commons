@@ -1,10 +1,15 @@
 package com.taogen.commons.network;
 
 import com.taogen.commons.collection.MapUtils;
+import com.taogen.commons.io.FileUtils;
+import com.taogen.commons.io.IOUtils;
+import com.taogen.commons.network.vo.FormItem;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -143,6 +148,30 @@ class HttpRequestUtilTest {
 
     @Test
     void multiValueMapToMultipartData() throws IOException {
+    }
+
+    @Test
+    void convertBytesToFormItems() throws URISyntaxException, IOException {
+        Map<String, List<Object>> formData = new HashMap<>();
+        formData.put("id", Arrays.asList(1));
+        formData.put("name", Arrays.asList("test"));
+        formData.put("file", Arrays.asList(
+                new File(FileUtils.getFilePathByFileClassPath("static/test.jpg"))));
+        String boundary = "d252c6c8-3c02-4291-9cd3-fb6612c44d40";
+        byte[] requestBody = HttpRequestUtil.multiValueMapToMultipartData(formData, boundary);
+        List<FormItem> formItems = HttpRequestUtil.convertBytesToFormItems(requestBody, boundary);
+
+        byte[] fileBytes = IOUtils.convertFileToBytes(new File(FileUtils.getFilePathByFileClassPath("static/test.jpg")));
+        for (FormItem formItem : formItems) {
+            if ("id".equals(formItem.getName())) {
+                assertEquals("1", formItem.getValue());
+            } else if ("name".equals(formItem.getName())) {
+                assertEquals("test", formItem.getValue());
+            } else if ("file".equals(formItem.getName())) {
+                assertEquals("test.jpg", formItem.getFilename());
+                assertTrue(Arrays.equals(formItem.getBytes(), fileBytes));
+            }
+        }
     }
 
     @Test
