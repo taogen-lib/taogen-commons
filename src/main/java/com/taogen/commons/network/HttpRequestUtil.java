@@ -1,6 +1,8 @@
 package com.taogen.commons.network;
 
-import com.taogen.commons.io.IOUtils;
+import com.taogen.commons.crypto.CryptoUtils;
+import com.taogen.commons.datatypes.string.StringUtils;
+import com.taogen.commons.network.vo.FormItem;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
@@ -27,6 +29,12 @@ public class HttpRequestUtil {
 
     public static final Pattern MULTIPART_FIELD_VALUE_PATTERN = Pattern.compile(
             "; name=\"(\\w+)\".*(\r\n\r\n|\r{2}|\n{2})(.*?)(\r\n|\n|\r)", Pattern.DOTALL);
+
+    /**
+     * field: group 1, filename: group 3, contentType: group 6, newline: group 8, content: group 9
+     */
+    public static final Pattern MULTIPART_HEX_FIELD_VALUE_PATTERN = Pattern.compile(
+            "3b206e616d653d22(\\w+?)22(3b2066696c656e616d653d22(\\w+?)22(0d0a|0d|0a))*(436f6e74656e742d547970653a20(\\w+?)(0d0a|0d|0a))*.*(0d0a0d0a|0d0d|0a0a)(.*)", Pattern.DOTALL);
 
     public static final Pattern MULTIPART_BOUNDARY_PATTERN = Pattern.compile(
             "boundary=(.+)");
@@ -112,6 +120,22 @@ public class HttpRequestUtil {
         return multiValueMap;
     }
 
+    /**
+     * --boundary
+     * {fieldname1}\r\n
+     * \r\n
+     * {fieldvalue1}\r\n
+     * --boundary
+     * {fieldname2}\r\n
+     * \r\n
+     * {fieldvalue2}\r\n
+     * --boundary--
+     *
+     * @param data
+     * @param boundary
+     * @return
+     * @throws IOException
+     */
     public static byte[] multiValueMapToMultipartData(Map<String, List<Object>> data,
                                                       String boundary) throws IOException {
         if (data == null || data.isEmpty()) {
@@ -183,6 +207,78 @@ public class HttpRequestUtil {
         return buff.array();
     }
 
+    public static boolean formItemsEqual(List<FormItem> formItems1, List<FormItem> formItems2) {
+        if (formItems1 == null && formItems2 == null) {
+            return true;
+        }
+        if (formItems1 == null) {
+            formItems1 = new ArrayList<>();
+        }
+        if (formItems2 == null) {
+            formItems2 = new ArrayList<>();
+        }
+        if (formItems1.size() != formItems2.size()) {
+            return false;
+        }
+        for (int i = 0; i < formItems1.size(); i++) {
+            FormItem formItem1 = formItems1.get(i);
+            FormItem formItem2 = formItems2.get(i);
+            if (!formItem1.getIsFile().equals(formItem2.getIsFile())) {
+                return false;
+            }
+            if (formItem1.getIsFile()) {
+                if (!Arrays.equals(formItem1.getBytes(), formItem2.getBytes())) {
+                    return false;
+                }
+            } else {
+                if (!Objects.equals(formItem1.getValue(), formItem2.getValue())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static List<FormItem> convertBytesToFormItems(byte[] bytes, String boundary) {
+        List<FormItem> formItems = new ArrayList<>();
+        if (bytes == null || bytes.length == 0 || boundary == null || boundary.isEmpty()) {
+            return formItems;
+        }
+        if (!boundary.startsWith("--")) {
+            boundary = "--" + boundary;
+        }
+        String boundaryHex = CryptoUtils.bytesToHexString(boundary.getBytes(StandardCharsets.UTF_8));
+        String bodyHex = CryptoUtils.bytesToHexString(bytes);
+        String[] bodyHexParts = bodyHex.split(boundaryHex);
+        int i = 0;
+        for (String bodyHexPart : bodyHexParts) {
+            Matcher matcher = MULTIPART_HEX_FIELD_VALUE_PATTERN.matcher(bodyHexPart);
+            // field: group 1, filename: group 3, contentType: group 6, newline: group 8, content: group 9
+            if (matcher.find()) {
+                FormItem formItem = new FormItem();
+                formItem.setName(new String(CryptoUtils.hexStringToBytes(matcher.group(1)), StandardCharsets.UTF_8));
+                String newlineHex = matcher.group(8);
+                String valueHex = matcher.group(9);
+                valueHex = valueHex.substring(0, valueHex.length() - newlineHex.length() / 2);
+                byte[] fieldValueBytes = CryptoUtils.hexStringToBytes(valueHex);
+                formItem.setBytes(fieldValueBytes);
+                if (StringUtils.isNotEmpty(matcher.group(6))) {
+                    formItem.setContentType(new String(CryptoUtils.hexStringToBytes(matcher.group(6)), StandardCharsets.UTF_8));
+                }
+                String fileItemHex = matcher.group(3);
+                if (StringUtils.isEmpty(fileItemHex)) {
+                    formItem.setIsFile(false);
+                    formItem.setValue(new String(formItem.getBytes(), StandardCharsets.UTF_8));
+                } else {
+                    String fileName = new String(CryptoUtils.hexStringToBytes(matcher.group(3)), StandardCharsets.UTF_8);
+                    formItem.setIsFile(true);
+                    formItem.setFilename(fileName);
+                }
+                formItems.add(formItem);
+            }
+        }
+        return formItems;
+    }
 
     public static Map<String, List<Object>> multipartDataToMultiValueMap(
             byte[] multipartData, String boundary) {
