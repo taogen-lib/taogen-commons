@@ -168,7 +168,7 @@ class HttpRequestUtilTest {
                 "Content-Disposition: form-data; name=\"file\"; filename=\"a.txt\"\n" +
                 "Content-Type: text/plain\n" +
                 "\n" +
-                "Content of a.txt." +
+                "Content of a.txt.\n" +
                 "--boundary--\n";
         String boundary = "--boundary";
         Map<String, List<Object>> map = HttpRequestUtil.multipartDataToMultiValueMap(s.getBytes(StandardCharsets.UTF_8), boundary);

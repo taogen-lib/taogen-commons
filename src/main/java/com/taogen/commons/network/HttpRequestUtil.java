@@ -26,7 +26,7 @@ public class HttpRequestUtil {
             "(--\\w+--)((?!\\1).)*", Pattern.DOTALL);
 
     public static final Pattern MULTIPART_FIELD_VALUE_PATTERN = Pattern.compile(
-            "; name=\"(\\w+)\".*?(\r\n\r\n|\r{2}|\n{2})(.+)", Pattern.DOTALL);
+            "; name=\"(\\w+)\".*(\r\n\r\n|\r{2}|\n{2})(.*?)(\r\n|\n|\r)", Pattern.DOTALL);
 
     public static final Pattern MULTIPART_BOUNDARY_PATTERN = Pattern.compile(
             "boundary=(.+)");
@@ -132,7 +132,7 @@ public class HttpRequestUtil {
         for (Map.Entry<String, List<Object>> entry : data.entrySet()) {
 
             List<Object> values = entry.getValue();
-            if (values.size() > 0) {
+            if (values != null && !values.isEmpty()) {
                 for (Object value : values) {
                     // Opening boundary
                     byteArrays.add(separator);
@@ -207,7 +207,7 @@ public class HttpRequestUtil {
                 if (multiValueMap.get(field) == null) {
                     multiValueMap.put(field, new ArrayList<>());
                 }
-                multiValueMap.get(field).add(IOUtils.removeNewLineCharacters(value));
+                multiValueMap.get(field).add(value);
             }
         });
         return multiValueMap;
