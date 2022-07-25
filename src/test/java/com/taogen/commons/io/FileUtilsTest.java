@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -25,6 +26,20 @@ class FileUtilsTest {
         String updateFileName2 = FileUtils.appendDateTimeToFileName(fileName2);
         System.out.println(updateFileName2);
         assertTrue(Pattern.compile("test_[0-9_-]+").matcher(updateFileName2).matches());
+    }
+
+    @Test
+    void getFilePathByFileClassPath() throws URISyntaxException, FileNotFoundException {
+        assertThrows(FileNotFoundException.class, () -> {
+            FileUtils.getFilePathByFileClassPath("test.txt");
+        });
+        String filePath = FileUtils.getFilePathByFileClassPath("static/test.txt");
+        System.out.println(filePath);
+        assertTrue(filePath.endsWith(new StringBuilder()
+                .append("static")
+                .append(File.separator)
+                .append("test.txt")
+                .toString()));
     }
 
     @Test

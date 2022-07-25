@@ -5,8 +5,10 @@ import com.taogen.commons.datatypes.datetime.DateFormatters;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
@@ -66,9 +68,12 @@ public class FileUtils {
      * @return
      * @throws IOException
      */
-    public static String getFilePathByFileClassPath(String fileClassPath) throws URISyntaxException {
+    public static String getFilePathByFileClassPath(String fileClassPath) throws URISyntaxException, FileNotFoundException {
         URL url = FileUtils.class.getClassLoader()
                 .getResource(fileClassPath);
+        if (url == null) {
+            throw new FileNotFoundException("File not found: " + fileClassPath);
+        }
         return Paths.get(url.toURI()).toFile().getAbsolutePath();
     }
 
