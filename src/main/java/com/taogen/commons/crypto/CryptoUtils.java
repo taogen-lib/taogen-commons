@@ -1,5 +1,7 @@
 package com.taogen.commons.crypto;
 
+import javax.xml.bind.DatatypeConverter;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Base64;
@@ -66,12 +68,43 @@ public class CryptoUtils {
         return new BigInteger(1, bytes).toString(16);
     }
 
+    /**
+     * FIXME: java.lang.StringIndexOutOfBoundsException: String index out of range: 43703
+     *
+     * @param hexString
+     * @return
+     */
     public static byte[] hexStringToBytes(String hexString) {
         int len = hexString.length();
         byte[] bytes = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
             bytes[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt(i + 1), 16));
         }
+        return bytes;
+    }
+
+    /**
+     * In Java 8 and earlier, JAXB was part of the Java standard library.
+     * It was deprecated with Java 9 and removed with Java 11.
+     * <p>
+     * FIXME: java.lang.IllegalArgumentException: hexBinary needs to be even-length
+     *
+     * @param hexString
+     * @return
+     */
+    public static byte[] hexStringToBytes2(String hexString) {
+        return DatatypeConverter.parseHexBinary(hexString);
+    }
+
+    /**
+     * java.lang.IllegalArgumentException: hexBinary needs to be even-length
+     *
+     * @param hexString
+     * @return
+     */
+    public static byte[] hexStringToBytes3(String hexString) {
+        HexBinaryAdapter adapter = new HexBinaryAdapter();
+        byte[] bytes = adapter.unmarshal(hexString);
         return bytes;
     }
 
