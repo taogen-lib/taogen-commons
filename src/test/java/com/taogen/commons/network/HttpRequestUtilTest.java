@@ -1,6 +1,6 @@
 package com.taogen.commons.network;
 
-import com.taogen.commons.collection.MapUtils;
+import com.taogen.commons.collection.MultiValueMapUtils;
 import com.taogen.commons.io.FileUtils;
 import com.taogen.commons.io.IOUtils;
 import com.taogen.commons.network.vo.FormItem;
@@ -108,42 +108,42 @@ class HttpRequestUtilTest {
         returnMap = HttpRequestUtil.queryStringToMultiValueMap("key1=");
         log.debug("returnMap: {}", returnMap);
         expectMap.put("key1", new ArrayList<>());
-        assertTrue(MapUtils.multiValueMapEquals(expectMap, returnMap));
+        assertTrue(MultiValueMapUtils.multiValueMapEquals(expectMap, returnMap));
         // multiple key value is null
         returnMap = HttpRequestUtil.queryStringToMultiValueMap("key1=&key2=");
         log.debug("returnMap: {}", returnMap);
         expectMap = new LinkedHashMap<>();
         expectMap.put("key1", new ArrayList<>());
         expectMap.put("key2", new ArrayList<>());
-        assertTrue(MapUtils.multiValueMapEquals(expectMap, returnMap));
+        assertTrue(MultiValueMapUtils.multiValueMapEquals(expectMap, returnMap));
         // key1 value is null, key 2 has value
         returnMap = HttpRequestUtil.queryStringToMultiValueMap("key1=&key2=abc");
         log.debug("returnMap: {}", returnMap);
         expectMap = new LinkedHashMap<>();
         expectMap.put("key1", new ArrayList<>());
         expectMap.put("key2", Arrays.asList("abc"));
-        assertTrue(MapUtils.multiValueMapEquals(expectMap, returnMap));
+        assertTrue(MultiValueMapUtils.multiValueMapEquals(expectMap, returnMap));
         // key1 has value, key2 value is null
         returnMap = HttpRequestUtil.queryStringToMultiValueMap("key1=abc&key2=");
         log.debug("returnMap: {}", returnMap);
         expectMap = new LinkedHashMap<>();
         expectMap.put("key1", Arrays.asList("abc"));
         expectMap.put("key2", new ArrayList<>());
-        assertTrue(MapUtils.multiValueMapEquals(expectMap, returnMap));
+        assertTrue(MultiValueMapUtils.multiValueMapEquals(expectMap, returnMap));
         // key 1 has one value, key 2 has multiple values
         returnMap = HttpRequestUtil.queryStringToMultiValueMap("key1=1&key1=2&key1=3&key2=abc");
         log.debug("returnMap: {}", returnMap);
         expectMap = new LinkedHashMap<>();
         expectMap.put("key1", Arrays.asList(1, 2, 3));
         expectMap.put("key2", Arrays.asList("abc"));
-        assertTrue(MapUtils.multiValueMapEquals(expectMap, returnMap));
+        assertTrue(MultiValueMapUtils.multiValueMapEquals(expectMap, returnMap));
         // key 1 has multiple values, key 2 has one value
         returnMap = HttpRequestUtil.queryStringToMultiValueMap("key1=abc&key2=1&key2=2&key2=3");
         log.debug("returnMap: {}", returnMap);
         expectMap = new LinkedHashMap<>();
         expectMap.put("key1", Arrays.asList("abc"));
         expectMap.put("key2", Arrays.asList(1, 2, 3));
-        assertTrue(MapUtils.multiValueMapEquals(expectMap, returnMap));
+        assertTrue(MultiValueMapUtils.multiValueMapEquals(expectMap, returnMap));
     }
 
     @Test
@@ -206,7 +206,7 @@ class HttpRequestUtilTest {
         expectMap.put("key1", Arrays.asList(1, 2, 3));
         expectMap.put("key2", Arrays.asList("abc"));
         expectMap.put("file", Arrays.asList("Content of a.txt."));
-        assertTrue(MapUtils.multiValueMapEquals(expectMap, map));
+        assertTrue(MultiValueMapUtils.multiValueMapEquals(expectMap, map));
     }
 
     @Test
@@ -233,7 +233,7 @@ class HttpRequestUtilTest {
         Map<String, List<Object>> expectMap2 = new LinkedHashMap<>();
         expectMap2.put("name", Arrays.asList("test", "test2"));
         expectMap2.put("id", Arrays.asList(1));
-        assertTrue(MapUtils.multiValueMapEquals(expectMap2, map2));
+        assertTrue(MultiValueMapUtils.multiValueMapEquals(expectMap2, map2));
     }
 
     @Test
