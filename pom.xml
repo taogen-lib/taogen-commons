@@ -93,6 +93,17 @@
 			<groupId>org.jetbrains</groupId>
 			<artifactId>annotations</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.github.taogen-lib</groupId>
+			<artifactId>easy-httpclient-common</artifactId>
+			<version>-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.taogen-lib</groupId>
+			<artifactId>easy-httpclient-test</artifactId>
+			<version>31440bbcf7</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
