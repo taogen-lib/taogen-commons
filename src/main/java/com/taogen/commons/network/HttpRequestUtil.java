@@ -256,7 +256,11 @@ public class HttpRequestUtil {
             // field: group 1, filename: group 3, contentType: group 6, newline: group 8, content: group 9
             if (matcher.find()) {
                 FormItem formItem = new FormItem();
-                formItem.setName(new String(CryptoUtils.hexStringToBytes(matcher.group(1)), StandardCharsets.UTF_8));
+                String nameHex = matcher.group(1);
+                if (StringUtils.isEmpty(nameHex)) {
+                    continue;
+                }
+                formItem.setName(new String(CryptoUtils.hexStringToBytes(nameHex), StandardCharsets.UTF_8));
                 String newlineHex = matcher.group(8);
                 String valueHex = matcher.group(9);
                 valueHex = valueHex.substring(0, valueHex.length() - newlineHex.length() / 2);
