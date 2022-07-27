@@ -58,4 +58,11 @@ public class DateRangeUtils {
     public static List<String> getBetweenMonths(Date startDate, Date endDate, DateFormat formatter) {
         return new ArrayList<>(getBetweens(startDate, endDate, formatter, Calendar.MONTH));
     }
+
+    public static boolean isBetweenHour(Date date, int startHour, int endHour) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        return hour >= startHour && hour <= endHour;
+    }
 }
