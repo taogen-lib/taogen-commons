@@ -1,7 +1,7 @@
 package com.taogen.commons.network;
 
 import com.taogen.commons.collection.MultiValueMapUtils;
-import com.taogen.easyhttpclient.vo.*;
+import com.taogen.commons.network.vo.*;
 
 import java.io.*;
 import java.math.BigInteger;

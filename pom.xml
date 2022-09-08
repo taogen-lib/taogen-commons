@@ -7,11 +7,19 @@
 	<parent>
 		<groupId>com.github.taogen-lib</groupId>
 		<artifactId>commons-parent</artifactId>
-		<version>-SNAPSHOT</version>
+		<version>39e10e006e</version>
 	</parent>
 	<groupId>com.taogen</groupId>
-	<artifactId>commons-java</artifactId>
+	<artifactId>taogen-commons</artifactId>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+    <modules>
+        <module>commons-lang</module>
+        <module>commons-mybatis-plus</module>
+		<module>commons-all</module>
+	</modules>
+
 	<properties>
 	</properties>
 
@@ -63,48 +71,7 @@
 <!--		</pluginRepository>-->
 	</pluginRepositories>
 
-	<dependencies>
-		<!-- junit 5 -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- log -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jetbrains</groupId>
-			<artifactId>annotations</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.github.taogen-lib</groupId>
-			<artifactId>easy-httpclient-common</artifactId>
-			<version>-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.taogen-lib</groupId>
-			<artifactId>easy-httpclient-test</artifactId>
-			<version>31440bbcf7</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+	
 
 	<build>
 		<plugins>

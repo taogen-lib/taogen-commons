@@ -1,9 +1,8 @@
 package com.taogen.commons.network;
 
 import com.taogen.commons.io.FileUtils;
-import com.taogen.easyhttpclient.enums.HttpMethod;
-import com.taogen.easyhttpclient.mockwebserver.MockWebServerTest;
-import com.taogen.easyhttpclient.vo.*;
+import com.taogen.commons.network.enums.HttpMethod;
+import com.taogen.commons.network.vo.*;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
