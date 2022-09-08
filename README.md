@@ -3,7 +3,7 @@ Java utility code library.
 
 Dependency this library in Maven Project
 
-- Add the [JitPack](https://jitpack.io/#taogen-lib/commons-java) repository to your build file
+- Add the [JitPack](https://jitpack.io/#taogen-lib/taogen-commons) repository to your build file
 
   ```xml
   <repositories>
@@ -20,8 +20,8 @@ Dependency this library in Maven Project
 
   ```xml
   <dependency>
-      <groupId>com.github.taogen-lib</groupId>
-      <artifactId>commons-java</artifactId>
+      <groupId>com.github.taogen-lib.taogen-commons</groupId>
+      <artifactId>commons-lang</artifactId>
       <version>Tag</version>
   </dependency>
   ```
@@ -30,8 +30,8 @@ Dependency this library in Maven Project
 
   ```xml
   <dependency>
-      <groupId>com.github.taogen-lib</groupId>
-      <artifactId>commons-java</artifactId>
+      <groupId>com.github.taogen-lib.taogen-commons</groupId>
+      <artifactId>commons-lang</artifactId>
       <version>{short_commit_hash_on_jitpack}</version>
   </dependency>
   ```
@@ -40,8 +40,8 @@ Dependency this library in Maven Project
 
   ```xml
   <dependency>
-    <groupId>com.github.taogen-lib</groupId>
-    <artifactId>commons-java</artifactId>
+    <groupId>com.github.taogen-lib.taogen-commons</groupId>
+    <artifactId>commons-lang</artifactId>
     <version>-SNAPSHOT</version>
   </dependency>
   ```
