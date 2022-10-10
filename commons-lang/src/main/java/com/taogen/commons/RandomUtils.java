@@ -3,11 +3,21 @@ package com.taogen.commons;
 import com.taogen.commons.datatypes.string.StringUtils;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 @Log4j2
 public class RandomUtils {
+
+    public static String generateRandomNumberStr(int length) {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        int min = 0, max = 9;
+        return random.ints(length, min, max + 1)
+                .mapToObj(Objects::toString)
+                .collect(Collectors.joining(""));
+    }
 
     /**
      * Random is thread safe for use by multiple threads. But if multiple threads use the same instance of Random, the same seed is shared by multiple threads. It leads to contention between multiple threads and so to performance degradation.

@@ -72,4 +72,12 @@ public class DirectoryUtils {
     public static String getTempDir() {
         return System.getProperty("java.io.tmpdir");
     }
+
+    /**
+     * Windows: C:\Users\{user}
+     * @return
+     */
+    public static String getUserHomeDir() {
+        return System.getProperty("user.home");
+    }
 }
