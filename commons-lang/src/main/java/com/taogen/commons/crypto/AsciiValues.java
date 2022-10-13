@@ -24,5 +24,4 @@ public class AsciiValues {
 
     public static final Integer SPECIAL_CHAR_ASCII_END_NUM = 126;
 
-    public static final Set<String> SPECIAL_CHARACTER_SET_FOR_RANDOM_STRING = new HashSet<>(Arrays.asList("~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+"));
 }

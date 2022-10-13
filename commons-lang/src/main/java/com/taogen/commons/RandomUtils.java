@@ -3,8 +3,7 @@ package com.taogen.commons;
 import com.taogen.commons.datatypes.string.StringUtils;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -12,6 +11,9 @@ import static com.taogen.commons.crypto.AsciiValues.*;
 
 @Log4j2
 public class RandomUtils {
+
+    public static final Set<String> SPECIAL_CHARACTER_SET_FOR_RANDOM_STRING =
+            new HashSet<>(Arrays.asList("~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+"));
 
     public static String generateRandomAlphanumericStr(int length) {
         int leftLimit = NUMBER_ASCII_START_NUM; // numeral '0'
@@ -33,7 +35,7 @@ public class RandomUtils {
                 .filter(i -> (i >= NUMBER_ASCII_START_NUM && i <= NUMBER_ASCII_END_NUM) ||
                         (i >= UPPER_LETTER_ASCII_START_NUM && i <= UPPER_LETTER_ASCII_END_NUM) ||
                         (i >= LOWER_LETTER_ASCII_START_NUM && i <= LOWER_LETTER_ASCII_END_NUM) ||
-                        (SPECIAL_CHARACTER_SET_FOR_RANDOM_STRING.contains(String.valueOf((char)i))))
+                        (SPECIAL_CHARACTER_SET_FOR_RANDOM_STRING.contains(String.valueOf((char) i))))
                 .limit(length)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
