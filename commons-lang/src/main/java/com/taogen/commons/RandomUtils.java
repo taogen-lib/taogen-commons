@@ -8,8 +8,37 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
+import static com.taogen.commons.crypto.AsciiValues.*;
+
 @Log4j2
 public class RandomUtils {
+
+    public static String generateRandomAlphanumericStr(int length) {
+        int leftLimit = NUMBER_ASCII_START_NUM; // numeral '0'
+        int rightLimit = LOWER_LETTER_ASCII_END_NUM; // letter 'z'
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> i <= NUMBER_ASCII_END_NUM ||
+                        (i >= UPPER_LETTER_ASCII_START_NUM && i <= UPPER_LETTER_ASCII_END_NUM) ||
+                        (i >= LOWER_LETTER_ASCII_START_NUM))
+                .limit(length)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
+    }
+
+    public static String generateRandomStrWithSpecialChars(int length) {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        String generatedString = random.ints(SPECIAL_CHAR_ASCII_START_NUM, SPECIAL_CHAR_ASCII_END_NUM + 1)
+                .filter(i -> (i >= NUMBER_ASCII_START_NUM && i <= NUMBER_ASCII_END_NUM) ||
+                        (i >= UPPER_LETTER_ASCII_START_NUM && i <= UPPER_LETTER_ASCII_END_NUM) ||
+                        (i >= LOWER_LETTER_ASCII_START_NUM && i <= LOWER_LETTER_ASCII_END_NUM) ||
+                        (SPECIAL_CHARACTER_SET_FOR_RANDOM_STRING.contains(String.valueOf((char)i))))
+                .limit(length)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
+    }
 
     public static String generateRandomNumberStr(int length) {
         ThreadLocalRandom random = ThreadLocalRandom.current();
