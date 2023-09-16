@@ -19,8 +19,9 @@ import java.util.Map;
  * 1. change field name: @JsonProperty(value = "birth_date")
  * 2. format date time: @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
  * 3. ignore field: @JsonIgnore
+ * 4. ignore null value fields: @JsonInclude(JsonInclude.Include.NON_NULL)
  * Deserialization:
- * 1. ignore field: @JsonIgnoreProperties(ignoreUnknown = true)
+ * 1. ignore non-declared fields: @JsonIgnoreProperties(ignoreUnknown = true) - fix UnrecognizedPropertyException
  *
  * @author Taogen
  */
