@@ -21,6 +21,7 @@
 		<module>jsonparser-jackson</module>
 		<module>jsonparser-orgjson</module>
 		<module>jsonparser-gson</module>
+		<module>jsonparser-jsonpath</module>
 	</modules>
 
 	<properties>
