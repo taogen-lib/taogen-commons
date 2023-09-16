@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.github.taogen-lib</groupId>
 		<artifactId>commons-parent</artifactId>
-		<version>1814468691</version>
+		<version>61b6bb9456</version>
 	</parent>
 	<groupId>com.taogen</groupId>
 	<artifactId>taogen-commons</artifactId>
@@ -16,7 +16,14 @@
 
 	<properties>
 		<revision>1.0-SNAPSHOT</revision>
-		<spring-boot.version>2.7.3</spring-boot.version>
+<!--		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+<!--		<maven.compiler.target>1.8</maven.compiler.target>-->
+<!--		<maven.compiler.source>1.8</maven.compiler.source>-->
+
+<!--		<spring-boot.version>2.7.3</spring-boot.version>-->
+<!--		<junit.jupiter.version>5.9.0</junit.jupiter.version>-->
+<!--		<junit.platform.version>1.9.0</junit.platform.version>-->
 	</properties>
 
     <modules>
@@ -29,7 +36,7 @@
 		<module>jsonparser-jsonpath</module>
 		<module>httpclient-common</module>
 		<module>httpclient-test</module>
-		<module>httpclient-spring-rest-template</module>
+<!--		<module>httpclient-spring-rest-template</module>-->
 		<module>httpclient-apache</module>
 		<module>httpclient-okhttp</module>
 		<!--		<module>httpclient-jetty</module>-->
@@ -38,13 +45,13 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.boot</groupId>-->
+<!--				<artifactId>spring-boot-dependencies</artifactId>-->
+<!--				<version>${spring-boot.version}</version>-->
+<!--				<type>pom</type>-->
+<!--				<scope>import</scope>-->
+<!--			</dependency>-->
 			<dependency>
 				<groupId>com.taogen</groupId>
 				<artifactId>commons-lang</artifactId>

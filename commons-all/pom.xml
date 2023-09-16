@@ -43,10 +43,10 @@
             <groupId>com.taogen.commons.jsonparser</groupId>
             <artifactId>jsonparser-jsonpath</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.taogen.commons.httpclient</groupId>
-            <artifactId>httpclient-spring-rest-template</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.taogen.commons.httpclient</groupId>-->
+<!--            <artifactId>httpclient-spring-rest-template</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.taogen.commons.httpclient</groupId>
             <artifactId>httpclient-apache</artifactId>
