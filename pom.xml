@@ -19,6 +19,7 @@
         <module>commons-mybatis-plus</module>
 		<module>commons-all</module>
 		<module>jsonparser-jackson</module>
+		<module>jsonparser-orgjson</module>
 	</modules>
 
 	<properties>
