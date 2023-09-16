@@ -14,7 +14,7 @@
 	<!-- Note that there's no version specified; it's inherited from parent -->
 	<packaging>jar</packaging>
 
-	<name>Commons Lang</name>
+	<name>commons-lang</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
