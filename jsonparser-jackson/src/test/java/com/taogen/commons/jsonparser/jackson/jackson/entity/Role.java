@@ -1,4 +1,4 @@
-package com.taogen.common.jsonparser.jackson.entity;
+package com.taogen.commons.jsonparser.jackson.jackson.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

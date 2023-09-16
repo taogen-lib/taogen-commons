@@ -1,7 +1,7 @@
-package com.taogen.common.jsonparser.jackson;
+package com.taogen.commons.jsonparser.jackson.jackson;
 
 
-import com.taogen.common.jsonparser.jackson.entity.Role;
+import com.taogen.commons.jsonparser.jackson.jackson.entity.Role;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

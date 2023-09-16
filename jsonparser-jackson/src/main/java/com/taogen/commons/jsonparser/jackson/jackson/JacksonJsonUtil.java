@@ -1,4 +1,4 @@
-package com.taogen.common.jsonparser.jackson;
+package com.taogen.commons.jsonparser.jackson.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

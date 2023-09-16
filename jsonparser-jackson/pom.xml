@@ -7,7 +7,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.taogen.common.jsonparser</groupId>
+    <groupId>com.taogen.commons.jsonparser</groupId>
     <artifactId>jsonparser-jackson</artifactId>
     <version>1.0-SNAPSHOT</version>
 

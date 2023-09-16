@@ -1,10 +1,10 @@
-package com.taogen.common.jsonparser.jackson;
+package com.taogen.commons.jsonparser.jackson.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.taogen.common.jsonparser.jackson.entity.Role;
-import com.taogen.common.jsonparser.jackson.entity.User;
+import com.taogen.commons.jsonparser.jackson.jackson.entity.Role;
+import com.taogen.commons.jsonparser.jackson.jackson.entity.User;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 

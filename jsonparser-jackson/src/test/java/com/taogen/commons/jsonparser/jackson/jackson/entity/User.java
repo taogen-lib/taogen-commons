@@ -1,4 +1,4 @@
-package com.taogen.common.jsonparser.jackson.entity;
+package com.taogen.commons.jsonparser.jackson.jackson.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
