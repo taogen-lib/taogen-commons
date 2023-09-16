@@ -1,5 +1,7 @@
 # Taogen Commons Java
-Java utility code library.
+
+A Java common utility library that simplifies the operation of other libraries by encapsulating its original
+functionality.
 
 Dependency this library in Maven Project
 
