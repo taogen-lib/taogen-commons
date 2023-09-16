@@ -46,6 +46,35 @@ Dependency this library in Maven Project
   </dependency>
   ```
 
+Or using the local Maven repository
+
+```xml
+
+<dependency>
+  <groupId>com.taogen</groupId>
+  <artifactId>commons-lang</artifactId>
+  <version>{some_version}</version>
+</dependency>
+```
+
+## Test
+
+```shell
+# test all modules
+mvn clean test
+# test a specific module
+mvn clean test -pl submodule
+```
+
+## Install
+
+```shell
+# Install all modules to local repository. So other projects can refer to it and grab it from your local repository.
+mvn clean install
+# Install a specific module
+mvn clean install -pl submodule
+```
+
 ## Method return null or throw an exception
 
 If you are always expecting to find a value then throw the exception if it is missing. The exception would mean that there was a problem.
