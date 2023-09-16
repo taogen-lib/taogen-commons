@@ -47,5 +47,13 @@
             <groupId>com.taogen.commons.httpclient</groupId>
             <artifactId>httpclient-spring-rest-template</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.taogen.commons.httpclient</groupId>
+            <artifactId>httpclient-apache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.taogen.commons.httpclient</groupId>
+            <artifactId>httpclient-okhttp</artifactId>
+        </dependency>
     </dependencies>
 </project>

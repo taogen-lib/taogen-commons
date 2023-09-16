@@ -27,6 +27,12 @@
 		<module>jsonparser-orgjson</module>
 		<module>jsonparser-gson</module>
 		<module>jsonparser-jsonpath</module>
+		<module>httpclient-common</module>
+		<module>httpclient-test</module>
+		<module>httpclient-spring-rest-template</module>
+		<module>httpclient-apache</module>
+		<module>httpclient-okhttp</module>
+		<!--		<module>httpclient-jetty</module>-->
 	</modules>
 
 
@@ -72,6 +78,31 @@
 			<dependency>
 				<groupId>com.taogen.commons.jsonparser</groupId>
 				<artifactId>jsonparser-jsonpath</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taogen.commons.httpclient</groupId>
+				<artifactId>httpclient-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taogen.commons.httpclient</groupId>
+				<artifactId>httpclient-test</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taogen.commons.httpclient</groupId>
+				<artifactId>httpclient-spring-rest-template</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taogen.commons.httpclient</groupId>
+				<artifactId>httpclient-apache</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taogen.commons.httpclient</groupId>
+				<artifactId>httpclient-okhttp</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
