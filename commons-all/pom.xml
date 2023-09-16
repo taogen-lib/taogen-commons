@@ -2,45 +2,50 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>taogen-commons</artifactId>
         <groupId>com.taogen</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.taogen</groupId>
     <artifactId>commons-all</artifactId>
+    <!-- Note that there's no version specified; it's inherited from parent -->
+    <packaging>jar</packaging>
+
+    <name>commons-all</name>
+    <!-- FIXME change it to the project's website -->
+    <url>http://www.example.com</url>
 
     <dependencies>
         <dependency>
             <groupId>com.taogen</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.taogen</groupId>
             <artifactId>commons-mybatis-plus</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.taogen.commons.jsonparser</groupId>
             <artifactId>jsonparser-jackson</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.taogen.commons.jsonparser</groupId>
             <artifactId>jsonparser-orgjson</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.taogen.commons.jsonparser</groupId>
             <artifactId>jsonparser-gson</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.taogen.commons.jsonparser</groupId>
             <artifactId>jsonparser-jsonpath</artifactId>
-            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.taogen.commons.httpclient</groupId>
+            <artifactId>httpclient-spring-rest-template</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -4,12 +4,13 @@
     <parent>
         <groupId>com.taogen</groupId>
         <artifactId>taogen-commons</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <groupId>com.taogen.commons.jsonparser</groupId>
     <artifactId>jsonparser-orgjson</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <!-- Note that there's no version specified; it's inherited from parent -->
+    <packaging>jar</packaging>
 
     <name>jsonparser-orgjson</name>
     <!-- FIXME change it to the project's website -->
