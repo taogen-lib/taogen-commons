@@ -18,6 +18,7 @@
         <module>commons-lang</module>
         <module>commons-mybatis-plus</module>
 		<module>commons-all</module>
+		<module>jsonparser-jackson</module>
 	</modules>
 
 	<properties>
@@ -71,7 +72,6 @@
 <!--		</pluginRepository>-->
 	</pluginRepositories>
 
-	
 
 	<build>
 		<plugins>
