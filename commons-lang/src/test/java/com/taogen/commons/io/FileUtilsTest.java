@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,20 +65,22 @@ class FileUtilsTest {
     }
 
     @Test
-    void escapeFileName() {
-        assertDoesNotThrow(() -> createFile(FileUtils.removeIllegalCharactersFromFileName("test")));
-        assertDoesNotThrow(() -> createFile(FileUtils.removeIllegalCharactersFromFileName("test.txt")));
-        List<String> specialFileNames = Arrays.asList(
-                "test\\characters",
-                "test/characters", "test:characters",
-                "test*characters", "test?characters",
-                "test\"characters", "test<characters",
-                "test>characters", "test|characters",
-                "test\rcharacters", "test\ncharacters",
-                "test\tcharacters");
-        for (String fileName : specialFileNames) {
-            assertThrows(IllegalArgumentException.class, () -> createFile(fileName));
-            assertDoesNotThrow(() -> createFile(FileUtils.removeIllegalCharactersFromFileName(fileName)));
+    void removeIllegalCharactersFromFileName() {
+        Map<String, String> specialFileNames = new HashMap<>();
+        specialFileNames.put("test\\characters", "test-characters");
+        specialFileNames.put("test/characters", "test-characters");
+        specialFileNames.put("test:characters", "test-characters");
+        specialFileNames.put("test*characters", "test-characters");
+        specialFileNames.put("test?characters", "test-characters");
+        specialFileNames.put("test\"characters", "test-characters");
+        specialFileNames.put("test<characters", "test-characters");
+        specialFileNames.put("test>characters", "test-characters");
+        specialFileNames.put("test|characters", "test-characters");
+        specialFileNames.put("test\rcharacters", "test-characters");
+        specialFileNames.put("test\ncharacters", "test-characters");
+        specialFileNames.put("test\tcharacters", "test-characters");
+        for (Map.Entry<String, String> entry : specialFileNames.entrySet()) {
+            assertEquals(entry.getValue(), FileUtils.removeIllegalCharactersFromFileName(entry.getKey()));
         }
     }
 
