@@ -18,6 +18,10 @@
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
+    <properties>
+        <revision>1.0-SNAPSHOT</revision>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.baomidou</groupId>

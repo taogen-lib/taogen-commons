@@ -19,6 +19,7 @@
 	<url>http://www.example.com</url>
 
 	<properties>
+		<revision>1.0-SNAPSHOT</revision>
 	</properties>
 
 	<dependencies>
