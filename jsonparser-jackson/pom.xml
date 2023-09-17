@@ -4,7 +4,7 @@
     <parent>
         <artifactId>taogen-commons</artifactId>
         <groupId>com.taogen</groupId>
-        <version>${revision}</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <groupId>com.taogen.commons.jsonparser</groupId>
