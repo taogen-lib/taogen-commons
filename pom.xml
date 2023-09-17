@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.github.taogen-lib</groupId>
 		<artifactId>commons-parent</artifactId>
-		<version>61b6bb9456</version>
+		<version>8a872800a1</version>
 	</parent>
 	<groupId>com.taogen</groupId>
 	<artifactId>taogen-commons</artifactId>
@@ -39,6 +39,7 @@
 <!--		<module>httpclient-spring-rest-template</module>-->
 		<module>httpclient-apache</module>
 		<module>httpclient-okhttp</module>
+		<module>commons-logic-process</module>
 		<!--		<module>httpclient-jetty</module>-->
 	</modules>
 
@@ -55,6 +56,11 @@
 			<dependency>
 				<groupId>com.taogen</groupId>
 				<artifactId>commons-lang</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taogen.commons</groupId>
+				<artifactId>commons-logic-process</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
