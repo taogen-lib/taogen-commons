@@ -63,5 +63,9 @@
             <groupId>com.taogen.commons.httpclient</groupId>
             <artifactId>httpclient-okhttp</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.taogen.commons.office</groupId>
+            <artifactId>office-apache-poi</artifactId>
+        </dependency>
     </dependencies>
 </project>

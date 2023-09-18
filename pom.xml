@@ -39,8 +39,9 @@
 <!--		<module>httpclient-spring-rest-template</module>-->
 		<module>httpclient-apache</module>
 		<module>httpclient-okhttp</module>
-		<module>commons-logic-process</module>
 		<!--		<module>httpclient-jetty</module>-->
+		<module>commons-logic-process</module>
+		<module>office-apache-poi</module>
 	</modules>
 
 
@@ -116,6 +117,11 @@
 			<dependency>
 				<groupId>com.taogen.commons.httpclient</groupId>
 				<artifactId>httpclient-okhttp</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taogen.commons.office</groupId>
+				<artifactId>office-apache-poi</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
