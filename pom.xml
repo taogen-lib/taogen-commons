@@ -42,6 +42,7 @@
 		<!--		<module>httpclient-jetty</module>-->
 		<module>commons-logic-process</module>
 		<module>office-apache-poi</module>
+		<module>data-access-sql</module>
 	</modules>
 
 
@@ -122,6 +123,11 @@
 			<dependency>
 				<groupId>com.taogen.commons.office</groupId>
 				<artifactId>office-apache-poi</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taogen.commons.dataaccess</groupId>
+				<artifactId>data-access-sql</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>

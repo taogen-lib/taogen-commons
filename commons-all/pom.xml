@@ -67,5 +67,9 @@
             <groupId>com.taogen.commons.office</groupId>
             <artifactId>office-apache-poi</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.taogen.commons.dataaccess</groupId>
+            <artifactId>data-access-sql</artifactId>
+        </dependency>
     </dependencies>
 </project>
