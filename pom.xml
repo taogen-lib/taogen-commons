@@ -43,6 +43,7 @@
 		<module>commons-logic-process</module>
 		<module>office-apache-poi</module>
 		<module>data-access-sql</module>
+		<module>third-party-services</module>
 	</modules>
 
 
@@ -128,6 +129,11 @@
 			<dependency>
 				<groupId>com.taogen.commons.dataaccess</groupId>
 				<artifactId>data-access-sql</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taogen.commons.thirdparty</groupId>
+				<artifactId>third-party-services</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>

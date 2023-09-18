@@ -71,5 +71,9 @@
             <groupId>com.taogen.commons.dataaccess</groupId>
             <artifactId>data-access-sql</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.taogen.commons.thirdparty</groupId>
+            <artifactId>third-party-services</artifactId>
+        </dependency>
     </dependencies>
 </project>
