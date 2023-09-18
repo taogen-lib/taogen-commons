@@ -29,9 +29,9 @@ public class HttpRequest {
 
     public static Map<String, List<Object>> getBasicHeaders() {
         Map<String, List<Object>> headers = new HashMap<>();
-        headers.put("Accept", Arrays.asList("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
+        headers.put("Accept", Arrays.asList("text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"));
         headers.put("Accept-Encoding", Arrays.asList("gzip, deflate, br"));
-        headers.put("Accept-Language", Arrays.asList("en-US,en,zh;q=0.5"));
+        headers.put("Accept-Language", Arrays.asList("en-US,en;q=0.9,zh-CN;q=0.8,zh-TW;q=0.7,zh;q=0.6"));
         headers.put("User-Agent", Arrays.asList("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"));
         return headers;
     }

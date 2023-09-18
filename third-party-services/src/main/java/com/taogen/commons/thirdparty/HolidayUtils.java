@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author taogen
@@ -25,10 +24,12 @@ public class HolidayUtils {
     public static boolean isHoliday(Date date) throws IOException {
         String url = HOLIDAY_URL_PREFIX + DATE_FORMAT_YYYY_MM_DD.format(date);
         log.debug("url: {}", url);
+        Map<String, List<Object>> headers = new HashMap<>();
+        headers.put("User-Agent", Arrays.asList("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"));
         HttpResponse httpResponse = OkHttpUtil.requestWithoutBody(HttpRequest.builder()
                 .url(url)
                 .method(HttpMethod.GET)
-                .headers(HttpRequest.getBasicHeaders())
+                .headers(headers)
                 .build());
         String bodyString = httpResponse.getBodyString(StandardCharsets.UTF_8);
         log.debug("bodyString: {}", bodyString);
