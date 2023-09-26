@@ -89,4 +89,16 @@ class FileUtilsTest {
         System.out.println(path.toString());
         path.toFile().deleteOnExit();
     }
+
+    @Test
+    void getFileNameByFileUrl() {
+        assertNull(FileUtils.getFileNameByFileUrl(null));
+        assertEquals("test.txt", FileUtils.getFileNameByFileUrl("http://localhost:8080/test.txt"));
+        assertEquals("test.txt", FileUtils.getFileNameByFileUrl("http://localhost:8080/test.txt?name=taogen"));
+        assertEquals("test.txt", FileUtils.getFileNameByFileUrl("http://localhost:8080/test.txt?name=taogen&age=18"));
+        assertEquals("test.txt", FileUtils.getFileNameByFileUrl("http://localhost:8080/test.txt?name=taogen&age=18#test"));
+        assertEquals("test.txt", FileUtils.getFileNameByFileUrl("http://localhost:8080/test.txt?name=taogen&age=18#test?name=taogen"));
+        assertEquals("test.txt", FileUtils.getFileNameByFileUrl("/download/test.txt"));
+        assertEquals("test.txt", FileUtils.getFileNameByFileUrl("/download/test.txt?name=taogen"));
+    }
 }

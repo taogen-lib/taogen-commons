@@ -5,10 +5,8 @@ import com.taogen.commons.datatypes.datetime.DateFormatters;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
@@ -82,9 +80,10 @@ public class FileUtils {
             return null;
         }
         String fileName = null;
-        if (fileUrl.indexOf("/") > 0) {
-            fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+        if (fileUrl.indexOf("/") < 0) {
+            return fileUrl;
         }
+        fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
         if (fileName.indexOf("?") > 0) {
             fileName = fileName.substring(0, fileName.indexOf("?"));
         }
