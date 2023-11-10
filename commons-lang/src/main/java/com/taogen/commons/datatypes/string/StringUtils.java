@@ -1,6 +1,9 @@
 package com.taogen.commons.datatypes.string;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class StringUtils {
 
@@ -148,5 +151,32 @@ public class StringUtils {
             idx += sub.length();
         }
         return count;
+    }
+
+    public static List<String> splitToStringList(String source, String separator) {
+        if (StringUtils.isEmpty(source)) {
+            return null;
+        }
+        if ("|".equals(separator)) {
+            separator = "\\|";
+        }
+        return Arrays.stream(source.split(separator))
+                .map(String::trim)
+                .filter(StringUtils::isNotEmpty)
+                .collect(Collectors.toList());
+    }
+
+    public static List<Integer> splitToIntegerList(String source, String separator) {
+        if (StringUtils.isEmpty(source)) {
+            return null;
+        }
+        if ("|".equals(separator)) {
+            separator = "\\|";
+        }
+        return Arrays.stream(source.split(separator))
+                .map(String::trim)
+                .filter(StringUtils::isNotEmpty)
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
     }
 }
