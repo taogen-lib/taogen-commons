@@ -2,6 +2,7 @@ package com.taogen.commons.jsonparser.jsonpath;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.Predicate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +35,8 @@ public class JsonpathUtil {
 
     public static <T> List<T> getList(DocumentContext documentContext,
                                       String jsonPath,
-                                      Class<T[]> clazz) {
-        return new ArrayList<>(Arrays.asList(documentContext.read(jsonPath, clazz)));
+                                      Class<T[]> clazz,
+                                      Predicate... predicates) {
+        return new ArrayList<>(Arrays.asList(documentContext.read(jsonPath, clazz, predicates)));
     }
 }
