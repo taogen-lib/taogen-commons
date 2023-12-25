@@ -1,5 +1,7 @@
 package com.taogen.commons.datatypes.string;
 
+import com.taogen.commons.regex.RegexPatterns;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;

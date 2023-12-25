@@ -1,5 +1,6 @@
 package com.taogen.commons.datatypes.string;
 
+import com.taogen.commons.regex.RegexPatterns;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
@@ -14,15 +15,6 @@ import java.util.regex.Pattern;
  */
 @Log4j2
 public class PrivacyCheckUtils {
-    public static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(
-            "(^|\\D+)\\s*(1[3-9]\\d{9})\\s*($|\\D+)", Pattern.DOTALL);
-    public static final Pattern ID_CARD_PATTERN = Pattern.compile(
-            "(^|\\D+)\\s*(\\d{6}(19|2[0-9])\\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2]\\d|3[0-1])\\d{3}(\\d|[xX]))\\s*($|\\D+)", Pattern.DOTALL);
-    /**
-     * Simple version: [0-9]{9,18}
-     */
-    public static final Pattern BANK_CARD_PATTERN = Pattern.compile(
-            "(^|\\D+)\\s*([1-9](\\d{11}|\\d{15}|\\d{16}|\\d{17}|\\d{18}))\\s*($|\\D+)", Pattern.DOTALL);
 
     /**
      * Get mobile, id card, bank card number's positions
@@ -33,9 +25,9 @@ public class PrivacyCheckUtils {
     public static CheckResult getCheckResult(String text) {
         CheckResult checkResult = new CheckResult();
         int group = 2;
-        checkResult.setPhone(getMatchPositions(text, PHONE_NUMBER_PATTERN, group));
-        checkResult.setIdCard(getMatchPositions(text, ID_CARD_PATTERN, group));
-        checkResult.setBankCard(getMatchPositions(text, BANK_CARD_PATTERN, group));
+        checkResult.setPhone(getMatchPositions(text, RegexPatterns.PHONE_NUMBER_PATTERN, group));
+        checkResult.setIdCard(getMatchPositions(text, RegexPatterns.ID_CARD_PATTERN, group));
+        checkResult.setBankCard(getMatchPositions(text, RegexPatterns.BANK_CARD_PATTERN, group));
         return checkResult;
     }
 

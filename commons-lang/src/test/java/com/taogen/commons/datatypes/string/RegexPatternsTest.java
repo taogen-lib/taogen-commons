@@ -2,8 +2,9 @@ package com.taogen.commons.datatypes.string;
 
 import org.junit.jupiter.api.Test;
 
-import static com.taogen.commons.datatypes.string.RegexPatterns.PASSWORD_STRENGTH_1;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.taogen.commons.regex.RegexPatterns.PASSWORD_STRENGTH_1;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegexPatternsTest {
     @Test
