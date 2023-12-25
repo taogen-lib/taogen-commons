@@ -5,20 +5,17 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class StringEncodingUtils {
 
     // verification <<
 
-    public static final Pattern CHINESE_PATTERN = Pattern.compile("[\\u4E00-\\u9FA5]");
-    public static final Pattern EMOJI_PATTERN = Pattern.compile("([\\x{10000}-\\x{10ffff}\ud800-\udfff])");
 
     public static boolean isChinese(String str) {
         if (str == null) {
             return false;
         }
-        Matcher matcher = CHINESE_PATTERN.matcher(str);
+        Matcher matcher = RegexPatterns.CHINESE_PATTERN.matcher(str);
         return matcher.find();
     }
 
@@ -26,7 +23,7 @@ public class StringEncodingUtils {
         if (str == null) {
             return false;
         }
-        Matcher matcher = EMOJI_PATTERN.matcher(str);
+        Matcher matcher = RegexPatterns.EMOJI_PATTERN.matcher(str);
         return matcher.find();
     }
 
@@ -53,7 +50,7 @@ public class StringEncodingUtils {
         if (str == null) {
             return null;
         }
-        Matcher matcher = EMOJI_PATTERN.matcher(str);
+        Matcher matcher = RegexPatterns.EMOJI_PATTERN.matcher(str);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
             try {
@@ -110,7 +107,7 @@ public class StringEncodingUtils {
         if (source != null) {
 //            Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
 //                    Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
-            Matcher emojiMatcher = EMOJI_PATTERN.matcher(source);
+            Matcher emojiMatcher = RegexPatterns.EMOJI_PATTERN.matcher(source);
             if (emojiMatcher.find()) {
                 source = emojiMatcher.replaceAll("");
                 return source;
