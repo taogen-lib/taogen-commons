@@ -36,7 +36,14 @@ public class ClassMethodUtils {
             String paramStr = Arrays.stream(parameters)
                     .map(param -> param.getType().getSimpleName() + " " + param.getName())
                     .collect(Collectors.joining(", "));
-            return item.getReturnType().getSimpleName() + " " + item.getName() + "(" + paramStr + ")";
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(item.getReturnType().getSimpleName())
+                    .append(" ")
+                    .append(item.getName())
+                    .append("(")
+                    .append(paramStr)
+                    .append(")");
+            return stringBuilder.toString();
         }).forEach(System.out::println);
     }
 }
