@@ -1,9 +1,11 @@
 package com.taogen.commons.reflection;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Taogen
@@ -18,5 +20,23 @@ public class ClassMethodUtils {
             node = node.getSuperclass();
         }
         return methods;
+    }
+
+    /**
+     * Print all methods in a class
+     * <p>
+     * Tip: You can add the option -parameters to javac and recompile source code (rebuild project in IntelliJ IDEA) to print real parameter names instead of arg0 or arg1.
+     *
+     * @param cls
+     */
+    private static void printMethods(Class cls) {
+        Method[] methods = cls.getDeclaredMethods();
+        Arrays.stream(methods).map(item -> {
+            Parameter[] parameters = item.getParameters();
+            String paramStr = Arrays.stream(parameters)
+                    .map(param -> param.getType().getSimpleName() + " " + param.getName())
+                    .collect(Collectors.joining(", "));
+            return item.getReturnType().getSimpleName() + " " + item.getName() + "(" + paramStr + ")";
+        }).forEach(System.out::println);
     }
 }
