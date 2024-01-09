@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.ToIntFunction;
 
 /**
  * @author taogen
@@ -27,12 +28,12 @@ public class FetchData {
     public static <P, T> List<T> getAllPage(Function<P, T> requestPage,
                                             BiFunction<Integer, Integer, P> buildParams,
                                             Integer pageSize,
-                                            Function<T, Integer> getTotalFromResponse,
+                                            ToIntFunction<T> getTotalFromResponse,
                                             Function<T, List<T>> getRowsFromResponse) {
         List<T> result = new ArrayList<>();
         Integer pageNum = 1;
         T firstResponse = requestPage.apply(buildParams.apply(pageNum, pageSize));
-        Integer totalCount = getTotalFromResponse.apply(firstResponse);
+        Integer totalCount = getTotalFromResponse.applyAsInt(firstResponse);
         log.debug("total count: {}", totalCount);
         List<T> firstPage = getRowsFromResponse.apply(firstResponse);
         result.addAll(firstPage);
