@@ -1,7 +1,9 @@
 package com.taogen.commons.collection;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Taogen
@@ -27,4 +29,26 @@ public class CollectionUtils {
         }
         return list.subList(0, index);
     }
+
+    public static <T, K> List<T> convertListToTree(List<T> list,
+                                                   Function<T, K> getId,
+                                                   Function<T, K> getParentId,
+                                                   BiConsumer<T, T> putChildren) {
+        if (list == null || list.isEmpty()) {
+            return Collections.emptyList();
+        }
+        Map<K, T> map = list.stream()
+                .collect(Collectors.toMap(item -> getId.apply(item), Function.identity()));
+        List<T> firstLevelNodeList = new ArrayList<>();
+        for (T entity : list) {
+            T parent = map.get(getParentId.apply(entity));
+            if (parent != null) {
+                putChildren.accept(parent, entity);
+            } else {
+                firstLevelNodeList.add(entity);
+            }
+        }
+        return firstLevelNodeList;
+    }
+
 }
