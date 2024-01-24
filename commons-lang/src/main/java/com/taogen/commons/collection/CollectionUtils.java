@@ -33,19 +33,25 @@ public class CollectionUtils {
     public static <T, K> List<T> convertListToTree(List<T> list,
                                                    Function<T, K> getId,
                                                    Function<T, K> getParentId,
-                                                   BiConsumer<T, T> putChildren) {
+                                                   Function<T, List<T>> getChildren,
+                                                   BiConsumer<T, List<T>> setChildren) {
         if (list == null || list.isEmpty()) {
             return Collections.emptyList();
         }
         Map<K, T> map = list.stream()
                 .collect(Collectors.toMap(item -> getId.apply(item), Function.identity()));
         List<T> firstLevelNodeList = new ArrayList<>();
-        for (T entity : list) {
-            T parent = map.get(getParentId.apply(entity));
+        for (T item : list) {
+            T parent = map.get(getParentId.apply(item));
             if (parent != null) {
-                putChildren.accept(parent, entity);
+                List<T> children = getChildren.apply(parent);
+                if (children == null) {
+                    children = new ArrayList<T>();
+                }
+                children.add(item);
+                setChildren.accept(parent, children);
             } else {
-                firstLevelNodeList.add(entity);
+                firstLevelNodeList.add(item);
             }
         }
         return firstLevelNodeList;
