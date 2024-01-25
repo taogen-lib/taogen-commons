@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CollectionUtilsTest {
 
@@ -24,6 +23,38 @@ class CollectionUtilsTest {
         assertNull(node1.getChildren());
         assertNull(node2.getChildren());
         assertNull(node4.getChildren());
+    }
+
+    @Test
+    void convertTreeToList() {
+        Node node = new Node(1, null, "root");
+        Node node1 = new Node(2, 1, "node1");
+        Node node2 = new Node(3, 1, "node2");
+        node.setChildren(Arrays.asList(node1, node2));
+        Node node3 = new Node(4, null, "node3");
+        Node node4 = new Node(5, 4, "node4");
+        node3.setChildren(Arrays.asList(node4));
+        List<Node> list = Arrays.asList(node, node3);
+        List<Node> result = CollectionUtils.convertTreeToList(list, Node::getChildren);
+        assertNotNull(result);
+        assertEquals(5, result.size());
+        System.out.println(result);
+    }
+
+    @Test
+    void convertTreeToList2() {
+        Node node = new Node(1, null, "root");
+        Node node1 = new Node(2, 1, "node1");
+        Node node2 = new Node(3, 1, "node2");
+        node.setChildren(Arrays.asList(node1, node2));
+        Node node3 = new Node(4, null, "node3");
+        Node node4 = new Node(5, 4, "node4");
+        node3.setChildren(Arrays.asList(node4));
+        List<Node> list = Arrays.asList(node, node3);
+        List<Node> result = CollectionUtils.convertTreeToList2(list, Node::getChildren);
+        assertNotNull(result);
+        assertEquals(5, result.size());
+        System.out.println(result);
     }
 
     public static class Node {

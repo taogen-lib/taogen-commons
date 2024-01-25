@@ -57,4 +57,36 @@ public class CollectionUtils {
         return firstLevelNodeList;
     }
 
+    public static <T> List<T> convertTreeToList(List<T> list, Function<T, List<T>> getChildren) {
+        if (list == null || list.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<T> result = new java.util.ArrayList<>();
+        Deque<T> queue = new ArrayDeque<>();
+        queue.addAll(list);
+        while (!queue.isEmpty()) {
+            T item = queue.poll();
+            result.add(item);
+            List<T> children = getChildren.apply(item);
+            if (children != null && !children.isEmpty()) {
+                queue.addAll(children);
+            }
+        }
+        return result;
+    }
+
+    public static <T> List<T> convertTreeToList2(List<T> list, Function<T, List<T>> getChildren) {
+        if (list == null || list.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<T> result = new java.util.ArrayList<>();
+        for (T item : list) {
+            result.add(item);
+            List<T> children = getChildren.apply(item);
+            if (children != null && !children.isEmpty()) {
+                result.addAll(convertTreeToList2(children, getChildren));
+            }
+        }
+        return result;
+    }
 }
