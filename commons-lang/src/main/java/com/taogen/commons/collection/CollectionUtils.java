@@ -39,14 +39,14 @@ public class CollectionUtils {
             return Collections.emptyList();
         }
         Map<K, T> map = list.stream()
-                .collect(Collectors.toMap(item -> getId.apply(item), Function.identity()));
+                .collect(Collectors.toMap(getId::apply, Function.identity()));
         List<T> firstLevelNodeList = new ArrayList<>();
         for (T item : list) {
             T parent = map.get(getParentId.apply(item));
             if (parent != null) {
                 List<T> children = getChildren.apply(parent);
                 if (children == null) {
-                    children = new ArrayList<T>();
+                    children = new ArrayList<>();
                 }
                 children.add(item);
                 setChildren.accept(parent, children);
