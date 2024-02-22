@@ -17,14 +17,14 @@ public class RegexPatterns {
 
     public static final Pattern CHINESE_PATTERN = Pattern.compile("[\\u4E00-\\u9FA5]");
 
-    public static final Pattern EMOJI_PATTERN = Pattern.compile("([\\x{10000}-\\x{10ffff}\ud800-\udfff])");
+    public static final Pattern EMOJI_PATTERN_2 = Pattern.compile("[\\x{10000}-\\x{10ffff}\ud800-\udfff]");
 
     /**
      * Unicode property escape:
      * - \p{So}: Other_Symbol
      * - \p{Sk}: Modifier_Symbol
      */
-    public static final Pattern EMOJI_PATTERN_2 = Pattern.compile("[\\p{So}\\p{Sk}]");
+    public static final Pattern EMOJI_PATTERN = Pattern.compile("[\\p{So}\\p{Sk}]");
 
     public static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(
             "(^|\\D+)\\s*(1[3-9]\\d{9})\\s*($|\\D+)", Pattern.DOTALL);

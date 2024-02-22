@@ -58,7 +58,7 @@ public class StringEncodingUtils {
             try {
 //				matcher.appendReplacement(sb, "[["
 //						+ URLEncoder.encode(matcher.group(1), "UTF-8") + "]]");
-                matcher.appendReplacement(sb, URLEncoder.encode(matcher.group(1), StandardCharsets.UTF_8.toString()));
+                matcher.appendReplacement(sb, URLEncoder.encode(matcher.group(), StandardCharsets.UTF_8.toString()));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
