@@ -17,7 +17,6 @@ public class RegexPatterns {
 
     public static final Pattern CHINESE_PATTERN = Pattern.compile("[\\u4E00-\\u9FFF\\u3000-\\u303F]");
 
-    public static final Pattern EMOJI_PATTERN_2 = Pattern.compile("[\\x{10000}-\\x{10ffff}\ud800-\udfff]");
 
     /**
      * Unicode property escape:
@@ -25,6 +24,10 @@ public class RegexPatterns {
      * - \p{Sk}: Modifier_Symbol
      */
     public static final Pattern EMOJI_PATTERN = Pattern.compile("[\\p{So}\\p{Sk}]");
+
+    public static final Pattern EMOJI_PATTERN_2 = Pattern.compile("[\\x{10000}-\\x{10ffff}\ud800-\udfff]");
+
+    public static final Pattern EMOJI_PATTERN_3 = Pattern.compile("[\\p{So}\\x{1F1E6}-\\x{1F1FF}\\x{1F300}-\\x{1F5FF}\\x{200D}]");
 
     public static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(
             "(^|\\D+)\\s*(1[3-9]\\d{9})\\s*($|\\D+)", Pattern.DOTALL);
