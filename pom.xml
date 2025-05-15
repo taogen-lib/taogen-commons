@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.github.taogen-lib</groupId>
 		<artifactId>commons-parent</artifactId>
-		<version>8a872800a1</version>
+		<version>e6a18b03bd</version>
 	</parent>
 	<groupId>com.taogen</groupId>
 	<artifactId>taogen-commons</artifactId>
